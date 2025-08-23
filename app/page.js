@@ -1,199 +1,260 @@
-"use client";
-
-import { useState, useEffect, useRef } from 'react';
-import Link from 'next/link';
+// File: src/app/page.tsx
 import Image from 'next/image';
+import Link from 'next/link';
 
-const SpotlightPage = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const cursorRef = useRef(null);
-  const starsContainerRef = useRef(null);
-
-  useEffect(() => {
-    const handleMouseMove = (e) => {
-      if (cursorRef.current) {
-        cursorRef.current.style.left = `${e.clientX}px`;
-        cursorRef.current.style.top = `${e.clientY}px`;
-      }
-    };
-
-    const handleMouseEnter = () => cursorRef.current?.classList.add('w-8', 'h-8', 'border-white/50');
-    const handleMouseLeave = () => cursorRef.current?.classList.remove('w-8', 'h-8', 'border-white/50');
-
-    window.addEventListener('mousemove', handleMouseMove);
-    const interactiveElements = document.querySelectorAll('a, button, input');
-    interactiveElements.forEach(el => {
-      el.addEventListener('mouseenter', handleMouseEnter);
-      el.addEventListener('mouseleave', handleMouseLeave);
-    });
-
-    return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
-      interactiveElements.forEach(el => {
-        el.removeEventListener('mouseenter', handleMouseEnter);
-        el.removeEventListener('mouseleave', handleMouseLeave);
-      });
-    };
-  }, []);
-
-  useEffect(() => {
-    const container = starsContainerRef.current;
-    if (!container) return;
-
-    container.innerHTML = '';
-
-    for (let i = 0; i < 150; i++) {
-      const star = document.createElement('div');
-      star.className = 'star absolute h-0.5 w-0.5 rounded-full bg-white';
-      star.style.left = `${Math.random() * 120}%`;
-      star.style.top = `${Math.random() * 120}%`;
-      star.style.animationDelay = `${Math.random() * 3}s`;
-      const duration = Math.random() * 3 + 2;
-      star.style.animationDuration = `${duration}s`;
-      container.appendChild(star);
-    }
-
-    const createShootingStar = () => {
-      if (!container) return;
-      const shootingStar = document.createElement('div');
-      shootingStar.className = `shooting-star absolute h-0.5 w-0.5 rounded-full bg-white opacity-0 after:content-[''] after:absolute after:top-0 after:left-0 after:h-px after:w-20 after:bg-gradient-to-r after:from-white/80 after:via-white/40 after:to-transparent after:origin-left-center after:[transform:rotate(25deg)]`;
-      shootingStar.style.left = `${Math.random() * 100}%`;
-      shootingStar.style.top = `${Math.random() * 50}%`;
-      shootingStar.style.animationDelay = `${Math.random() * 2}s`;
-      container.appendChild(shootingStar);
-      setTimeout(() => {
-        if (shootingStar.parentElement) {
-          shootingStar.remove();
-        }
-      }, 2000);
-    };
-
-    const intervalId = setInterval(() => {
-      if (Math.random() < 0.3) createShootingStar();
-    }, 3000);
-
-    return () => clearInterval(intervalId);
-  }, []);
-
+export default function Home() {
   return (
-    <>
-      <style jsx global>{`
-        @keyframes fadeInUp {
-          0% { opacity: 0; transform: translateY(30px); }
-          100% { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes twinkle {
-          0%, 100% { opacity: 0.3; }
-          50% { opacity: 1; }
-        }
-        @keyframes shooting {
-          0% { opacity: 0; transform: translate(0, 0); }
-          10% { opacity: 1; }
-          90% { opacity: 1; }
-          100% { opacity: 0; transform: translate(-300px, 150px); }
-        }
-        .fade-in-up {
-          animation: fadeInUp 1s ease-out forwards;
-        }
-        .star {
-          animation-name: twinkle;
-        }
-        .shooting-star {
-          animation-name: shooting;
-          animation-duration: 2s;
-          animation-timing-function: linear;
-          animation-iteration-count: infinite;
-        }
-      `}</style>
-      <div className="font-sans bg-[radial-gradient(ellipse_at_center,_#0a0a0a_0%,_#050505_35%,_#000000_100%)] min-h-screen overflow-x-hidden cursor-default relative pb-40">
-        <div ref={cursorRef} className="pointer-events-none fixed z-[9999] h-5 w-5 rounded-full border-2 border-white/30 bg-white/5 backdrop-blur-sm transition-all duration-200"></div>
-        <div ref={starsContainerRef} className="pointer-events-none fixed top-0 left-0 z-10 h-full w-full"></div>
-        <div className="pointer-events-none fixed bottom-0 left-0 z-20 h-[200px] w-full bg-[linear-gradient(to_top,_rgba(255,140,0,0.3)_0%,_rgba(255,100,0,0.15)_30%,_rgba(255,60,0,0.08)_60%,_transparent_100%)]"></div>
-
-        <nav className="relative z-30 flex w-full items-center justify-between px-2 py-3 md:px-10 md:py-6">
-          <Link href="/" aria-label="Home">
-            <Image src="/spotlight_logo.svg" alt="Spotlight Logo" width={150} height={50} className="h-8 w-auto brightness-125 md:h-10" />
-          </Link>
-          <div className={`absolute top-16 right-2.5 z-50 min-w-40 flex-col gap-0 rounded-xl bg-black/95 p-2.5 shadow-lg md:relative md:top-0 md:right-0 md:z-auto md:flex md:min-w-0 md:flex-row md:items-center md:gap-6 md:bg-transparent md:p-0 md:shadow-none ${ isMenuOpen ? 'flex' : 'hidden' }`}>
-            <Link href="/aboutus" className="w-full rounded-none border-none bg-none px-6 py-3.5 text-left text-lg text-white/80 no-underline transition-all duration-200 hover:bg-white/10 hover:text-white md:w-auto md:rounded-lg md:border md:border-white/10 md:bg-white/5 md:px-4 md:py-2 md:text-base md:font-medium md:hover:border-white/25">About Us</Link>
-            <Link href="https://forms.fillout.com/t/mhFijdinD5us" className="w-full rounded-none border-none bg-none px-6 py-3.5 text-left text-lg text-white/80 no-underline transition-all duration-200 hover:bg-white/10 hover:text-white md:w-auto md:rounded-lg md:border md:border-white/10 md:bg-white/5 md:px-4 md:py-2 md:text-base md:font-medium md:hover:border-white/25">Partner with us</Link>
+    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100">
+      {/* Navigation */}
+      <nav className="bg-white shadow-md">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between h-16">
+            <div className="flex items-center">
+              <div className="flex-shrink-0">
+                <Image
+                  src="/main_spotlight_logo.svg"
+                  alt="Spotlight Logo"
+                  width={180}
+                  height={40}
+                  className="h-10 w-auto"
+                />
+              </div>
+            </div>
+            <div className="hidden md:flex items-center space-x-8">
+              <Link href="/about" className="text-gray-700 hover:text-indigo-600 transition-colors">
+                About
+              </Link>
+              <Link href="/partner" className="text-gray-700 hover:text-indigo-600 transition-colors">
+                Partner With Us
+              </Link>
+              <Link href="/login" className="text-gray-700 hover:text-indigo-600 transition-colors">
+                Log In
+              </Link>
+              <Link 
+                href="/signup" 
+                className="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700 transition-colors"
+              >
+                Sign Up
+              </Link>
+            </div>
           </div>
-          <div onClick={() => setIsMenuOpen(!isMenuOpen)} className="z-40 flex h-10 w-10 cursor-pointer flex-col items-center justify-center md:hidden" aria-label="Open menu" tabIndex={0}>
-            <span className="my-0.5 block h-0.5 w-6 rounded-sm bg-white transition-all duration-300"></span>
-            <span className="my-0.5 block h-0.5 w-6 rounded-sm bg-white transition-all duration-300"></span>
-            <span className="my-0.5 block h-0.5 w-6 rounded-sm bg-white transition-all duration-300"></span>
-          </div>
-        </nav>
+        </div>
+      </nav>
 
-        <main className="relative z-10 flex min-h-screen flex-col items-center justify-center px-5 py-10 text-center md:pb-32">
-          <h1 className="mb-5 max-w-3xl text-4xl font-semibold leading-tight text-white opacity-0 fade-in-up [animation-delay:1s] md:text-6xl">
-            Good things come<br /> to those <span className="font-normal italic">who wait.</span>
-          </h1>
-          <p className="mb-12 max-w-xl px-5 text-base font-normal leading-relaxed text-white/60 opacity-0 fade-in-up [animation-delay:1.5s] md:text-lg">
-            Subscribe to be notified when we launch and get early access to something extraordinary.
+      {/* Hero Section */}
+      <section className="py-16 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+            <div>
+              <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+                Discover & Book Experiences Powered by AI
+              </h1>
+              <p className="text-xl text-gray-600 mb-8">
+                Spotlight is the world's first AI-driven lifestyle discovery platform that simplifies bookings across multiple venues without logistical hassles.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4">
+                <button className="bg-indigo-600 text-white px-8 py-3 rounded-lg font-medium hover:bg-indigo-700 transition-colors">
+                  Get Started
+                </button>
+                <button className="border border-indigo-600 text-indigo-600 px-8 py-3 rounded-lg font-medium hover:bg-indigo-50 transition-colors">
+                  Download App
+                </button>
+              </div>
+            </div>
+            <div className="relative">
+              <div className="bg-white p-6 rounded-xl shadow-lg">
+                <div className="mb-4">
+                  <h3 className="font-semibold text-lg mb-2">Try our AI Assistant</h3>
+                  <p className="text-gray-600 text-sm">Example: "Find restaurants with live music under $30 near me"</p>
+                </div>
+                <div className="flex">
+                  <input 
+                    type="text" 
+                    placeholder="Ask for recommendations..." 
+                    className="flex-1 border border-gray-300 rounded-l-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  />
+                  <button className="bg-indigo-600 text-white px-4 rounded-r-lg">
+                    Ask
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Stats Section */}
+      <section className="py-12 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+            <div>
+              <div className="text-4xl font-bold text-indigo-600 mb-2">500+</div>
+              <div className="text-gray-600">Venues & Experiences</div>
+            </div>
+            <div>
+              <div className="text-4xl font-bold text-indigo-600 mb-2">25K+</div>
+              <div className="text-gray-600">Happy Users</div>
+            </div>
+            <div>
+              <div className="text-4xl font-bold text-indigo-600 mb-2">98%</div>
+              <div className="text-gray-600">Booking Success Rate</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* How It Works */}
+      <section className="py-16 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto">
+          <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">How Spotlight Works</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="text-center">
+              <div className="bg-indigo-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                <span className="text-2xl font-bold text-indigo-600">1</span>
+              </div>
+              <h3 className="text-xl font-semibold mb-2">Describe Your Preferences</h3>
+              <p className="text-gray-600">Tell our AI what you're looking for - budget, preferences, group size, etc.</p>
+            </div>
+            <div className="text-center">
+              <div className="bg-indigo-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                <span className="text-2xl font-bold text-indigo-600">2</span>
+              </div>
+              <h3 className="text-xl font-semibold mb-2">Get Personalized Recommendations</h3>
+              <p className="text-gray-600">Our AI suggests the perfect venues and experiences tailored to your needs.</p>
+            </div>
+            <div className="text-center">
+              <div className="bg-indigo-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                <span className="text-2xl font-bold text-indigo-600">3</span>
+              </div>
+              <h3 className="text-xl font-semibold mb-2">Book Seamlessly</h3>
+              <p className="text-gray-600">Reserve multiple venues with a single click, no logistical headaches.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Features */}
+      <section className="py-16 bg-gray-50 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto">
+          <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">Why Choose Spotlight?</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="bg-white p-6 rounded-lg shadow-sm">
+              <div className="text-indigo-600 mb-4">
+                <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                </svg>
+              </div>
+              <h3 className="font-semibold mb-2">AI-Powered Recommendations</h3>
+              <p className="text-gray-600 text-sm">Get personalized suggestions based on your preferences and history.</p>
+            </div>
+            <div className="bg-white p-6 rounded-lg shadow-sm">
+              <div className="text-indigo-600 mb-4">
+                <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                </svg>
+              </div>
+              <h3 className="font-semibold mb-2">Secure Payments</h3>
+              <p className="text-gray-600 text-sm">Multiple payment options with bank-level security encryption.</p>
+            </div>
+            <div className="bg-white p-6 rounded-lg shadow-sm">
+              <div className="text-indigo-600 mb-4">
+                <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                </svg>
+              </div>
+              <h3 className="font-semibold mb-2">Group Booking Made Easy</h3>
+              <p className="text-gray-600 text-sm">Plan events with friends and book multiple venues simultaneously.</p>
+            </div>
+            <div className="bg-white p-6 rounded-lg shadow-sm">
+              <div className="text-indigo-600 mb-4">
+                <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+              <h3 className="font-semibold mb-2">Real-Time Availability</h3>
+              <p className="text-gray-600 text-sm">See up-to-date venue availability and get instant confirmations.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="py-16 bg-indigo-600 text-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="text-3xl font-bold mb-6">Ready to Transform Your Experience?</h2>
+          <p className="text-indigo-100 mb-8 max-w-3xl mx-auto">
+            Join thousands of users who are discovering and booking amazing experiences with Spotlight's AI-powered platform.
           </p>
-          <div className="mb-16 flex w-full justify-center opacity-0 fade-in-up [animation-delay:2s]">
-            <form className="flex w-full max-w-sm flex-col rounded-xl bg-black/20 shadow-lg sm:flex-row">
-              <label htmlFor="email-input" className="hidden">Email Address</label>
-              <input
-                type="email"
-                id="email-input"
-                className="flex-1 rounded-t-lg border border-white/20 bg-black/40 px-4 py-3.5 text-white backdrop-blur-lg placeholder:text-white/50 transition-all duration-300 focus:border-white/40 focus:bg-black/60 focus:outline-none sm:rounded-none sm:rounded-l-lg"
-                placeholder="Your Email Address"
-                required
-                autoComplete="email"
-              />
-              <button type="submit" className="relative flex-shrink-0 items-center justify-center overflow-hidden whitespace-nowrap rounded-b-lg bg-white/90 px-7 py-3.5 font-medium text-black transition-all duration-300 before:absolute before:left-1/2 before:top-1/2 before:h-0 before:w-0 before:-translate-x-1/2 before:-translate-y-1/2 before:rounded-full before:bg-white/30 before:transition-all before:duration-300 hover:-translate-y-px hover:bg-white hover:before:h-80 hover:before:w-80 sm:rounded-none sm:rounded-r-lg">
-                Get Notified
-              </button>
-            </form>
+          <div className="flex flex-col sm:flex-row justify-center gap-4">
+            <button className="bg-white text-indigo-600 px-8 py-3 rounded-lg font-medium hover:bg-gray-100 transition-colors">
+              Sign Up Free
+            </button>
+            <button className="bg-transparent border border-white text-white px-8 py-3 rounded-lg font-medium hover:bg-indigo-700 transition-colors">
+              Partner With Us
+            </button>
           </div>
-          <div className="mb-10 flex flex-col items-center justify-center gap-4 opacity-0 fade-in-up [animation-delay:1.8s] md:flex-row">
-              <a href="#" className="flex w-full items-center justify-center gap-2.5 rounded-xl border border-white/20 bg-white/5 px-5 py-3 text-sm font-medium text-white/80 backdrop-blur-lg transition-all duration-300 hover:-translate-y-0.5 hover:border-white/50 hover:bg-white/10 hover:text-white">
-                  <Image src="https://img.icons8.com/ios-filled/24/ffffff/mac-os.png" alt="iOS" width={20} height={20} className="brightness-150" /> Download on iOS
-              </a>
-              <a href="#" className="flex w-full items-center justify-center gap-2.5 rounded-xl border border-white/20 bg-white/5 px-5 py-3 text-sm font-medium text-white/80 backdrop-blur-lg transition-all duration-300 hover:-translate-y-0.5 hover:border-white/50 hover:bg-white/10 hover:text-white">
-                  <Image src="https://img.icons8.com/ios-filled/24/ffffff/android-os.png" alt="Android" width={20} height={20} className="brightness-150" /> Get on Android
-              </a>
-          </div>
-          <div className="flex flex-wrap justify-center gap-5 opacity-0 fade-in-up [animation-delay:2.2s]">
-            <a href="https://www.facebook.com/spotlighttin" className="flex h-10 w-10 items-center justify-center rounded-full border border-white/20 bg-white/5 text-white/60 backdrop-blur-lg transition-all duration-300 hover:-translate-y-0.5 hover:border-white/50 hover:bg-white/10 hover:text-white/90" aria-label="Facebook">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
-            </a>
-            <a href="https://www.instagram.com/spotlighttin" className="flex h-10 w-10 items-center justify-center rounded-full border border-white/20 bg-white/5 text-white/60 backdrop-blur-lg transition-all duration-300 hover:-translate-y-0.5 hover:border-white/50 hover:bg-white/10 hover:text-white/90" aria-label="Instagram">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
-            </a>
-            <a href="https://whatsapp.com/channel/0029Vb6KlJo35fM2wycyow46" className="flex h-10 w-10 items-center justify-center rounded-full border border-white/20 bg-white/5 text-white/60 backdrop-blur-lg transition-all duration-300 hover:-translate-y-0.5 hover:border-white/50 hover:bg-white/10 hover:text-white/90" aria-label="WhatsApp">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.51 3.488"/></svg>
-            </a>
-            <a href="https://x.com/spotlighttin" className="flex h-10 w-10 items-center justify-center rounded-full border border-white/20 bg-white/5 text-white/60 backdrop-blur-lg transition-all duration-300 hover:-translate-y-0.5 hover:border-white/50 hover:bg-white/10 hover:text-white/90" aria-label="X (Twitter)">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-            </a>
-            <a href="https://www.linkedin.com/company/spotlightappn" className="flex h-10 w-10 items-center justify-center rounded-full border border-white/20 bg-white/5 text-white/60 backdrop-blur-lg transition-all duration-300 hover:-translate-y-0.5 hover:border-white/50 hover:bg-white/10 hover:text-white/90" aria-label="LinkedIn">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-            </a>
-            <a href="https://www.reddit.com/r/spotlightin/" className="flex h-10 w-10 items-center justify-center rounded-full border border-white/20 bg-white/5 text-white/60 backdrop-blur-lg transition-all duration-300 hover:-translate-y-0.5 hover:border-white/50 hover:bg-white/10 hover:text-white/90" aria-label="Reddit">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0zm5.01 4.744c.688 0 1.25.561 1.25 1.249a1.25 1.25 0 0 1-2.498.056l-2.597-.547-.8 3.747c1.824.07 3.48.632 4.674 1.488.308-.309.73-.491 1.207-.491.968 0 1.754.786 1.754 1.754 0 .716-.435 1.333-1.01 1.614a3.111 3.111 0 0 1 .042.52c0 2.694-3.13 4.87-7.004 4.87-3.874 0-7.004-2.176-7.004-4.87 0-.183.015-.366.043-.534A1.748 1.748 0 0 1 4.028 12c0-.968.786-1.754 1.754-1.754.463 0 .898.196 1.207.49 1.207-.883 2.878-1.43 4.744-1.487l.885-4.182a.342.342 0 0 1 .14-.197.35.35 0 0 1 .238-.042l2.906.617a1.214 1.214 0 0 1 1.108-.701zM9.25 12C8.561 12 8 12.562 8 13.25c0 .687.561 1.248 1.25 1.248.687 0 1.248-.561 1.248-1.249 0-.688-.561-1.249-1.249-1.249zm5.5 0c-.687 0-1.248.561-1.248 1.25 0 .687.561 1.248 1.249 1.248.688 0 1.249-.561 1.249-1.249 0-.687-.562-1.249-1.25-1.249zm-5.466 3.99a.327.327 0 0 0-.231.094.33.33 0 0 0 0 .463c.842.842 2.484.913 2.961.913.477 0 2.105-.056 2.961-.913a.361.361 0 0 0 .029-.463.33.33 0 0 0-.464 0c-.547.533-1.684.73-2.512.73-.828 0-1.979-.196-2.512-.73a.326.326 0 0 0-.232-.095z"/></svg>
-            </a>
-          </div>
-        </main>
+        </div>
+      </section>
 
-        <footer className="absolute bottom-0 left-0 z-20 flex w-full flex-col items-center justify-center bg-black/20 py-6 text-center text-sm text-white/50 opacity-0 fade-in-up [animation-delay:2.5s]">
-          <div className="flex flex-col flex-wrap items-center justify-center gap-2.5 md:flex-row md:gap-4">
-            <span>Made in India. Built for the World.</span>
-            <a href="#" className="text-orange-400 no-underline">Privacy Policy</a>
-            <a href="#" className="text-orange-400 no-underline">Terms &amp; Conditions</a>
-            <a href="#" className="flex items-center gap-1 text-orange-400 no-underline">
-              <Image src="https://img.icons8.com/ios-filled/18/ffa500/mac-os.png" alt="iOS" width={18} height={18} /> iOS
-            </a>
-            <a href="#" className="flex items-center gap-1 text-orange-400 no-underline">
-              <Image src="https://img.icons8.com/ios-filled/18/ffa500/android-os.png" alt="Android" width={18} height={18} /> Android
-            </a>
+      {/* Footer */}
+      <footer className="bg-gray-800 text-white py-12 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8">
+          <div>
+            <Image
+              src="/main_spotlight_logo.svg"
+              alt="Spotlight Logo"
+              width={160}
+              height={36}
+              className="h-9 w-auto mb-4"
+            />
+            <p className="text-gray-400">
+              AI-powered lifestyle discovery and booking platform.
+            </p>
           </div>
-        </footer>
-      </div>
-    </>
+          <div>
+            <h3 className="font-semibold mb-4">Company</h3>
+            <ul className="space-y-2">
+              <li><a href="#" className="text-gray-400 hover:text-white transition-colors">About Us</a></li>
+              <li><a href="#" className="text-gray-400 hover:text-white transition-colors">Careers</a></li>
+              <li><a href="#" className="text-gray-400 hover:text-white transition-colors">Contact</a></li>
+            </ul>
+          </div>
+          <div>
+            <h3 className="font-semibold mb-4">Resources</h3>
+            <ul className="space-y-2">
+              <li><a href="#" className="text-gray-400 hover:text-white transition-colors">Help Center</a></li>
+              <li><a href="#" className="text-gray-400 hover:text-white transition-colors">Blog</a></li>
+              <li><a href="#" className="text-gray-400 hover:text-white transition-colors">Privacy Policy</a></li>
+            </ul>
+          </div>
+          <div>
+            <h3 className="font-semibold mb-4">Connect</h3>
+            <div className="flex space-x-4">
+              <a href="#" className="text-gray-400 hover:text-white transition-colors">
+                <span className="sr-only">Facebook</span>
+                <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path fillRule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" clipRule="evenodd" />
+                </svg>
+              </a>
+              <a href="#" className="text-gray-400 hover:text-white transition-colors">
+                <span className="sr-only">Instagram</span>
+                <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path fillRule="evenodd" d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 00-.748-1.15 3.098 3.098 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z" clipRule="evenodd" />
+                </svg>
+              </a>
+              <a href="#" className="text-gray-400 hover:text-white transition-colors">
+                <span className="sr-only">Twitter</span>
+                <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84" />
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div className="max-w-7xl mx-auto mt-8 pt-8 border-t border-gray-700 text-center text-gray-400">
+          <p>&copy; {new Date().getFullYear()} Spotlight. All rights reserved.</p>
+        </div>
+      </footer>
+    </div>
   );
-};
-
-export default SpotlightPage;
+}

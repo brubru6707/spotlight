@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 1920 1080">
+  <!-- Generator: Adobe Illustrator 29.5.1, SVG Export Plug-In . SVG Version: 2.1.0 Build 141)  -->
+  <defs>
+    <style>
+      .st0 {
+        fill: #fff;
+      }
+
+      .st1 {
+        font-family: Uptown-Regular, Uptown;
+        font-size: 238.3px;
+        letter-spacing: 0em;
+      }
+    </style>
+  </defs>
+  <text class="st1" transform="translate(642.3 617.5)"><tspan x="0" y="0">spotlight</tspan></text>
+  <g>
+    <path d="M497.7,557.6h29.1c-16,0-29.1-13.1-29.1-29.1s13.1-29.1,29.1-29.1h87.3v58.2h-29.1c16,0,29.1,13.1,29.1,29.1s-13.1,29.1-29.1,29.1h-87.3v-58.1Z"/>
+    <circle class="st0" cx="522.7" cy="529" r="8.5"/>
+  </g>
+</svg>

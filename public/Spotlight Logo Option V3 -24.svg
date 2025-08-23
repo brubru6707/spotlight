@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 1920 1080">
+  <!-- Generator: Adobe Illustrator 29.5.1, SVG Export Plug-In . SVG Version: 2.1.0 Build 141)  -->
+  <defs>
+    <style>
+      .st0 {
+        font-family: CottorwayPro-SemiBold, 'Cottorway Pro';
+        font-weight: 600;
+        letter-spacing: 0em;
+      }
+
+      .st1 {
+        font-size: 218.5px;
+      }
+
+      .st2 {
+        font-family: Minecraft, Minecraft;
+        letter-spacing: 0em;
+      }
+    </style>
+  </defs>
+  <text class="st1" transform="translate(536.8 606.9)"><tspan class="st2" x="0" y="0">spot</tspan><tspan class="st0" x="428.8" y="0">light</tspan></text>
+</svg>
