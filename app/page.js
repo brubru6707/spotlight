@@ -50,7 +50,7 @@ export default function Home() {
                 Discover & Book Experiences Powered by AI
               </h1>
               <p className="text-xl text-gray-600 mb-8">
-                Spotlight is the world's first AI-driven lifestyle discovery platform that simplifies bookings across multiple venues without logistical hassles.
+                Spotlight is the world&apos;s first AI-driven lifestyle discovery platform that simplifies bookings across multiple venues without logistical hassles.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
                 <button className="bg-indigo-600 text-white px-8 py-3 rounded-lg font-medium hover:bg-indigo-700 transition-colors">
@@ -65,7 +65,7 @@ export default function Home() {
               <div className="bg-white p-6 rounded-xl shadow-lg">
                 <div className="mb-4">
                   <h3 className="font-semibold text-lg mb-2">Try our AI Assistant</h3>
-                  <p className="text-gray-600 text-sm">Example: "Find restaurants with live music under $30 near me"</p>
+                  <p className="text-gray-600 text-sm">Example: &quot;Find restaurants with live music under $30 near me&quot;</p>
                 </div>
                 <div className="flex">
                   <input 
@@ -113,7 +113,7 @@ export default function Home() {
                 <span className="text-2xl font-bold text-indigo-600">1</span>
               </div>
               <h3 className="text-xl font-semibold mb-2">Describe Your Preferences</h3>
-              <p className="text-gray-600">Tell our AI what you're looking for - budget, preferences, group size, etc.</p>
+              <p className="text-gray-600">Tell our AI what you&apos;re looking for - budget, preferences, group size, etc.</p>
             </div>
             <div className="text-center">
               <div className="bg-indigo-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -183,7 +183,7 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl font-bold mb-6">Ready to Transform Your Experience?</h2>
           <p className="text-indigo-100 mb-8 max-w-3xl mx-auto">
-            Join thousands of users who are discovering and booking amazing experiences with Spotlight's AI-powered platform.
+            Join thousands of users who are discovering and booking amazing experiences with Spotlight&apos;s AI-powered platform.
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
             <button className="bg-white text-indigo-600 px-8 py-3 rounded-lg font-medium hover:bg-gray-100 transition-colors">
