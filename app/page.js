@@ -1,5 +1,6 @@
 "use client"
 import Link from 'next/link';
+import Image from 'next/image'; // Import the Next.js Image component
 import React, { useState } from 'react';
 
 // Helper component for checklist items for better readability
@@ -36,9 +37,11 @@ const FeatureCard = ({ icon, title, children }) => (
 // Helper component for Testimonial Cards
 const TestimonialCard = ({ quote, name, role, location, imgSrc }) => (
     <div className="bg-white p-6 rounded-lg shadow-lg flex flex-col h-full">
-        <p className="text-gray-600 text-sm flex-grow">"{quote}"</p>
+        {/* Escaped the quotes */}
+        <p className="text-gray-600 text-sm flex-grow">&quot;{quote}&quot;</p>
         <div className="mt-6 flex items-center">
-            <img className="h-12 w-12 rounded-full object-cover" src={imgSrc} alt={name} />
+            {/* Replaced <img> with Next.js Image */}
+            <Image className="h-12 w-12 rounded-full object-cover" src={imgSrc} alt={name} width={48} height={48} />
             <div className="ml-4">
                 <p className="font-semibold text-gray-800">{name}</p>
                 <p className="text-xs text-gray-500">{role}</p>
@@ -93,15 +96,17 @@ export default function App() {
     <>
       <div className="font-sans bg-gray-50 min-h-screen">
         {/* Header */}
-        <header className="absolute top-0 left-0 right-0 z-10 bg-transparent bg-white">
+        <header className="absolute top-0 left-0 right-0 z-10 bg-white">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex items-center justify-between h-20">
               {/* Logo */}
               <div className="flex-shrink-0">
-                 {/* Replaced Next.js Image with standard <img> tag */}
-                <img 
+                 {/* Replaced <img> with Next.js Image */}
+                <Image 
                   src="/main_spotlight_logo.svg" 
                   alt="Spotlight Logo" 
+                  width={150}
+                  height={32}
                   className="h-8 w-auto"
                 />
               </div>
@@ -133,11 +138,11 @@ export default function App() {
               <p className="mt-6 text-sm md:text-base max-w-md mx-auto">
                 0% commission for 1st month! Valid for new restaurant partners in select cities.
               </p>
-              <button className="mt-8 px-8 py-3 font-semibold text-white bg-blue-600 rounded-lg shadow-lg hover:bg-blue-700 transition-transform transform hover:scale-105 cursor-pointer">
+              <div className="mt-8 px-8 py-3 font-semibold text-white bg-blue-600 rounded-lg shadow-lg hover:bg-blue-700 transition-transform transform hover:scale-105 cursor-pointer inline-block">
                 <Link href="/signup">
-                  Register your restaurant
+                    Register your restaurant
                 </Link>
-              </button>
+              </div>
             </div>
           </div>
 
@@ -173,11 +178,12 @@ export default function App() {
 
                 {/* Right Side: Video Thumbnail */}
                 <div className="relative aspect-video rounded-lg overflow-hidden group cursor-pointer shadow-lg">
-                  {/* Replaced Next.js Image with standard <img> tag and wrapper div */}
-                  <img 
+                   {/* Replaced <img> with Next.js Image */}
+                  <Image 
                     src="https://placehold.co/1280x720/e0e0e0/000000?text=Video+Thumbnail"
                     alt="How to onboard your restaurant guide"
-                    className="absolute inset-0 w-full h-full object-cover"
+                    layout="fill"
+                    objectFit="cover"
                   />
                   <div className="absolute inset-0 bg-black bg-opacity-30 group-hover:bg-opacity-10 transition-all flex items-center justify-center">
                     <div className="w-16 h-16 bg-red-600 rounded-full flex items-center justify-center transition-transform transform group-hover:scale-110">
@@ -281,16 +287,16 @@ export default function App() {
                   </div>
                   <div className="bg-white p-8 rounded-lg shadow-lg">
                       <FAQItem question="What are the documents and details required to start deliveries through Spotlight?">
-                          To start delivering with Spotlight, you will need your PAN card, FSSAI license, bank account details, and GST number if applicable. You'll also need a menu and a profile food image.
+                          To start delivering with Spotlight, you will need your PAN card, FSSAI license, bank account details, and GST number if applicable. You&apos;ll also need a menu and a profile food image.
                       </FAQItem>
                       <FAQItem question="How long will it take for a restaurant to go live on Spotlight after submitting the documents?">
-                          After you submit all the required documents and they are verified, your restaurant can go live on our platform within 24-48 hours. We'll notify you as soon as you're ready to start receiving orders.
+                          After you submit all the required documents and they are verified, your restaurant can go live on our platform within 24-48 hours. We&apos;ll notify you as soon as you&apos;re ready to start receiving orders.
                       </FAQItem>
                       <FAQItem question="What is the one-time onboarding fee? Do I have to pay it at the time of registration?">
                           There is a one-time onboarding fee to get started on the platform. This fee can be paid at the time of registration. For current fee details and any promotional offers, please check our pricing page or contact our sales team.
                       </FAQItem>
                       <FAQItem question="How can I get help and support from Spotlight if I get stuck?">
-                          We have a dedicated support team available 24/7. You can reach out to us via email at merchantonboarding@spotlight.com, through the partner app, or by calling our support hotline. We're here to help you with any issues you might face.
+                          We have a dedicated support team available 24/7. You can reach out to us via email at merchantonboarding@spotlight.com, through the partner app, or by calling our support hotline. We&apos;re here to help you with any issues you might face.
                       </FAQItem>
                   </div>
               </div>
@@ -302,11 +308,12 @@ export default function App() {
             <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
                 <div className="flex flex-wrap justify-between items-start mb-8">
                     <div className="w-full md:w-auto mb-6 md:mb-0">
-                        <img 
+                        <Image 
                             src="/main_spotlight_logo.svg" 
                             alt="Spotlight Logo" 
+                            width={150}
+                            height={32}
                             className="h-8 w-auto mb-2"
-                            onError={(e) => { e.currentTarget.src = 'https://placehold.co/140x30/000000/ffffff?text=Logo'; }}
                         />
                         <span className="text-xs text-gray-500">restaurant partner</span>
                     </div>
@@ -377,8 +384,8 @@ export default function App() {
                             </SocialIcon>
                         </div>
                         <div className="space-y-4">
-                            <a href="#" className="block"><img src="https://placehold.co/135x40/000000/ffffff?text=App+Store" alt="Download on the App Store" className="h-10 w-auto" /></a>
-                            <a href="#" className="block"><img src="https://placehold.co/135x40/000000/ffffff?text=Google+Play" alt="Get it on Google Play" className="h-10 w-auto" /></a>
+                            <a href="#" className="block"><Image src="https://placehold.co/135x40/000000/ffffff?text=App+Store" alt="Download on the App Store" width={135} height={40} className="h-10 w-auto" /></a>
+                            <a href="#" className="block"><Image src="https://placehold.co/135x40/000000/ffffff?text=Google+Play" alt="Get it on Google Play" width={135} height={40} className="h-10 w-auto" /></a>
                         </div>
                     </div>
                 </div>
