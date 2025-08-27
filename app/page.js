@@ -1,9 +1,8 @@
 "use client"
 import Link from 'next/link';
-import Image from 'next/image'; // Import the Next.js Image component
-import React, { useState } from 'react';
+import Image from 'next/image';
+import React, { useState, useEffect } from 'react';
 
-// Helper component for checklist items for better readability
 const CheckListItem = ({ text, linkText, linkHref }) => (
   <li className="flex items-start space-x-3">
     <svg className="flex-shrink-0 w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"></path></svg>
@@ -21,7 +20,6 @@ const CheckListItem = ({ text, linkText, linkHref }) => (
   </li>
 );
 
-// Helper component for the feature cards
 const FeatureCard = ({ icon, title, children }) => (
   <div className="flex flex-col items-center text-center">
     <div className="p-4 bg-blue-100 rounded-full">
@@ -34,13 +32,10 @@ const FeatureCard = ({ icon, title, children }) => (
   </div>
 );
 
-// Helper component for Testimonial Cards
 const TestimonialCard = ({ quote, name, role, location, imgSrc }) => (
     <div className="bg-white p-6 rounded-lg shadow-lg flex flex-col h-full">
-        {/* Escaped the quotes */}
         <p className="text-gray-600 text-sm flex-grow">&quot;{quote}&quot;</p>
         <div className="mt-6 flex items-center">
-            {/* Replaced <img> with Next.js Image */}
             <Image className="h-12 w-12 rounded-full object-cover" src={imgSrc} alt={name} width={48} height={48} />
             <div className="ml-4">
                 <p className="font-semibold text-gray-800">{name}</p>
@@ -51,7 +46,6 @@ const TestimonialCard = ({ quote, name, role, location, imgSrc }) => (
     </div>
 );
 
-// Helper component for FAQ items
 const FAQItem = ({ question, children }) => {
     const [isOpen, setIsOpen] = useState(false);
 
@@ -83,36 +77,42 @@ const FAQItem = ({ question, children }) => {
     );
 };
 
-// Social Icon Helper
 const SocialIcon = ({ href, children }) => (
     <a href={href} className="text-gray-500 hover:text-gray-800 transition-colors">
         {children}
     </a>
 );
 
-
 export default function App() {
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY;
+      setIsScrolled(scrollPosition > 50);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
     <>
       <div className="font-sans bg-gray-50 min-h-screen">
-        {/* Header */}
-        <header className="absolute top-0 left-0 right-0 z-10 bg-white">
+        <header className={`fixed top-0 left-0 right-0 z-20 transition-all duration-300 ${isScrolled ? 'bg-white shadow-md' : 'bg-transparent'}`}>
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex items-center justify-between h-20">
-              {/* Logo */}
               <div className="flex-shrink-0">
-                 {/* Replaced <img> with Next.js Image */}
                 <Image 
                   src="/main_spotlight_logo.svg" 
                   alt="Spotlight Logo" 
                   width={150}
                   height={32}
-                  className="h-8 w-auto"
+                  className={`h-8 w-auto cursor-pointer transition-all duration-300 ${isScrolled ? 'brightness-0' : 'brightness-0 invert'}`}
                 />
               </div>
-              {/* Login Button */}
               <div>
-                <Link href="/login" className="px-6 py-2 text-sm font-semibold text-gray-700 bg-white rounded-lg shadow-sm hover:bg-gray-100 transition-colors">
+                <Link href="/login" className={`px-6 py-2 text-sm font-semibold rounded-lg border-2 bg-transparent transition-colors ${isScrolled ? 'text-black border-black hover:bg-black hover:bg-opacity-10' : 'text-white border-white hover:bg-white hover:bg-opacity-20'}`}>
                   Login
                 </Link>
               </div>
@@ -121,36 +121,30 @@ export default function App() {
         </header>
 
         <main>
-          {/* Hero Section */}
           <div 
-            className="relative flex items-center justify-center pt-40 pb-32 md:pb-48 bg-cover bg-center">
-
-            {/* Background overlay for better text readability */}
-            <div className="absolute inset-0 bg-white bg-cover bg-opacity-20 backdrop-blur-lg bg-[url('/food_banner_bg.jpg')]"></div>
-            
-            <div className="relative z-10 text-center text-gray-800">
-              <h1 className="text-4xl md:text-6xl font-bold">
+            className="relative flex items-center justify-center pt-18 pb-24 md:pt-40 md:pb-32">
+            <div className="absolute inset-0 bg-white bg-cover bg-top bg-opacity-20 backdrop-blur-lg bg-[url('https://b.zmtcdn.com/data/o2_assets/d21d421672f053abdb9f48e7320ef6ac1724931538.jpeg')] md:bg-[url('https://b.zmtcdn.com/data/o2_assets/5bf955bb67ba8559a5239c201073de681724933102.jpeg')]"></div>
+            <div className="relative z-10 text-center text-gray-800 px-4">
+              <h1 className="text-2xl md:text-6xl font-bold">
                 Partner with Spotlight
               </h1>
-              <h2 className="text-4xl md:text-6xl font-bold mt-2">
+              <h2 className="text-2xl md:text-6xl font-bold mt-2">
                 and grow your business
               </h2>
-              <p className="mt-6 text-sm md:text-base max-w-md mx-auto">
+              <p className="mt-6 text-sm md:text-base max-w-sm md:max-w-md mx-auto">
                 0% commission for 1st month! Valid for new restaurant partners in select cities.
               </p>
-              <div className="mt-8 px-8 py-3 font-semibold text-white bg-blue-600 rounded-lg shadow-lg hover:bg-blue-700 transition-transform transform hover:scale-105 cursor-pointer inline-block">
-                <Link href="/signup">
+              <div className="mt-8 px-8 py-3 mb-8 font-semibold text-white bg-blue-600 rounded-lg shadow-lg hover:bg-blue-700 transition-transform transform hover:scale-105 cursor-pointer inline-block">
+                <a href="/signup">
                     Register your restaurant
-                </Link>
+                </a>
               </div>
             </div>
           </div>
 
-          {/* Get Started Section */}
-          <div className="relative px-4 -mt-20 md:-mt-32">
+          <div className="relative px-4 -mt-24 md:-mt-32">
             <div className="container mx-auto max-w-5xl bg-white rounded-xl shadow-2xl p-6 md:p-8">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-                {/* Left Side: Checklist */}
                 <div>
                   <h3 className="text-2xl font-bold text-gray-800">Get Started - It only takes 10 minutes</h3>
                   <p className="mt-2 text-sm text-gray-500">Please keep these documents and details ready for a smooth sign-up.</p>
@@ -176,38 +170,32 @@ export default function App() {
                   </div>
                 </div>
 
-                {/* Right Side: Video Thumbnail */}
                 <div className="relative aspect-video rounded-lg overflow-hidden group cursor-pointer shadow-lg">
-                   {/* Replaced <img> with Next.js Image */}
-                  <Image 
-                    src="https://placehold.co/1280x720/e0e0e0/000000?text=Video+Thumbnail"
-                    alt="How to onboard your restaurant guide"
-                    layout="fill"
-                    objectFit="cover"
+                  <iframe 
+                    src="https://www.youtube.com/embed/Dz7TYlH_igg"
+                    title="How to onboard your restaurant guide"
+                    className="w-full h-full"
+                    frameBorder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
                   />
-                  <div className="absolute inset-0 bg-black bg-opacity-30 group-hover:bg-opacity-10 transition-all flex items-center justify-center">
-                    <div className="w-16 h-16 bg-red-600 rounded-full flex items-center justify-center transition-transform transform group-hover:scale-110">
-                      <svg className="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M4.018 15.124A1 1 0 013 14.236V5.764a1 1 0 011.518-.853l8.472 4.236a1 1 0 010 1.706l-8.472 4.236a1 1 0 01-1.518-.863z"></path></svg>
-                    </div>
-                  </div>
-                   <div className="absolute bottom-0 left-0 p-4">
-                      <h4 className="text-white font-bold text-sm">How to onboard your restaurant</h4>
-                      <p className="text-white text-xs">A quick guide to registration</p>
+                   <div className="absolute bottom-0 left-0 p-4 pointer-events-none">
+                     <h4 className="text-white font-bold text-sm">How to onboard your restaurant</h4>
+                     <p className="text-white text-xs">A quick guide to registration</p>
                   </div>
                 </div>
               </div>
             </div>
           </div>
           
-          {/* Why Partner With Us Section */}
           <section className="py-20">
             <div className="container mx-auto px-4 sm:px-6 lg:px-8">
               <div className="text-center mb-12">
-                 <div className="flex items-center justify-center">
-                    <div className="flex-grow border-t border-gray-300"></div>
-                    <h2 className="mx-4 text-2xl md:text-3xl font-bold text-gray-800 whitespace-wrap">Why should you partner with Spotlight?</h2>
-                    <div className="flex-grow border-t border-gray-300"></div>
-                </div>
+                   <div className="flex items-center justify-center">
+                      <div className="flex-grow border-t border-gray-300"></div>
+                      <h2 className="mx-4 text-2xl md:text-3xl font-bold text-gray-800 whitespace-wrap">Why should you partner with Spotlight?</h2>
+                      <div className="flex-grow border-t border-gray-300"></div>
+                  </div>
               </div>
               
               <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
@@ -247,7 +235,6 @@ export default function App() {
             </div>
           </section>
 
-          {/* Restaurant Success Stories Section */}
           <section className="bg-blue-50 py-20">
             <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="text-center mb-12">
@@ -259,27 +246,26 @@ export default function App() {
                         name="Arshad Khan"
                         role="Owner - Khusiboo biryani,"
                         location="Shillong"
-                        imgSrc="https://placehold.co/100x100/e0e0e0/000000?text=AK"
+                        imgSrc="https://b.zmtcdn.com/data/o2_assets/f596e23083bcaf7790bd06fa5bdef6641716462699.png"
                     />
                     <TestimonialCard
                         quote="Thanks to Spotlight's invaluable support, our startup cloud kitchen has been doing wonders in the competitive food industry landscape. Their dedication to promoting local businesses and powerful reporting tools have been instrumental in our success, and we look forward to a long-term partnership."
                         name="Vijay"
                         role="Owner - Birgo,"
                         location="Coimbatore"
-                        imgSrc="https://placehold.co/100x100/e0e0e0/000000?text=V"
+                        imgSrc="https://b.zmtcdn.com/data/o2_assets/f4bbbb9e0496d7772f44d2c0129cb0fb1716462984.png"
                     />
                     <TestimonialCard
                         quote="Spotlight helped us grow by 60% since registration, and now, we are one of the biggest vegetarian joints in Ernakulam city."
                         name="Sandeep K Mohan"
                         role="Owner - Mysore Raman Idli,"
                         location="Kerala"
-                        imgSrc="https://placehold.co/100x100/e0e0e0/000000?text=SM"
+                        imgSrc="https://b.zmtcdn.com/data/o2_assets/ef35a4c36a01ebc1ab78e784986ac4af1716462944.png"
                     />
                 </div>
             </div>
           </section>
 
-          {/* Frequently Asked Questions Section */}
           <section className="py-20">
               <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl">
                   <div className="text-center mb-12">
@@ -303,7 +289,6 @@ export default function App() {
           </section>
         </main>
         
-        {/* Footer */}
         <footer className="bg-white border-t border-gray-200">
             <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
                 <div className="flex flex-wrap justify-between items-start mb-8">
@@ -326,7 +311,6 @@ export default function App() {
                 </div>
 
                 <div className="grid grid-cols-2 md:grid-cols-5 gap-8">
-                    {/* Column 1 */}
                     <div>
                         <h5 className="font-bold text-gray-800 mb-4">ABOUT SPOTLIGHT</h5>
                         <ul className="space-y-3 text-sm text-gray-600">
@@ -337,7 +321,6 @@ export default function App() {
                             <li><a href="#" className="hover:underline">Report Fraud</a></li>
                         </ul>
                     </div>
-                    {/* Column 2 */}
                     <div>
                         <h5 className="font-bold text-gray-800 mb-4">SPOTLIGHTVERSE</h5>
                         <ul className="space-y-3 text-sm text-gray-600">
@@ -348,7 +331,6 @@ export default function App() {
                             <li><a href="#" className="hover:underline">Spotlightland</a></li>
                         </ul>
                     </div>
-                    {/* Column 3 */}
                     <div>
                         <h5 className="font-bold text-gray-800 mb-4">FOR RESTAURANTS</h5>
                         <ul className="space-y-3 text-sm text-gray-600">
@@ -356,7 +338,6 @@ export default function App() {
                             <li><a href="#" className="hover:underline">Apps For You</a></li>
                         </ul>
                     </div>
-                    {/* Column 4 */}
                     <div>
                         <h5 className="font-bold text-gray-800 mb-4">LEARN MORE</h5>
                         <ul className="space-y-3 text-sm text-gray-600">
@@ -366,7 +347,6 @@ export default function App() {
                             <li><a href="#" className="hover:underline">Sitemap</a></li>
                         </ul>
                     </div>
-                    {/* Column 5 */}
                     <div className="col-span-2 md:col-span-1">
                         <h5 className="font-bold text-gray-800 mb-4">SOCIAL LINKS</h5>
                         <div className="flex space-x-4 mb-6">
@@ -384,14 +364,18 @@ export default function App() {
                             </SocialIcon>
                         </div>
                         <div className="space-y-4">
-                            <a href="#" className="block"><Image src="https://placehold.co/135x40/000000/ffffff?text=App+Store" alt="Download on the App Store" width={135} height={40} className="h-10 w-auto" /></a>
-                            <a href="#" className="block"><Image src="https://placehold.co/135x40/000000/ffffff?text=Google+Play" alt="Get it on Google Play" width={135} height={40} className="h-10 w-auto" /></a>
+                            <a href="#" className="block">
+                                <Image src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" alt="Download on the App Store" width={120} height={40} className="h-10 w-auto p-[4px]" />
+                            </a>
+                            <a href="#" className="block">
+                                <Image src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png" alt="Get it on Google Play" width={135} height={40} className="h-10 w-auto" />
+                            </a>
                         </div>
                     </div>
                 </div>
                 
                 <div className="border-t border-gray-200 mt-8 pt-6 text-xs text-gray-500">
-                    <p>By continuing past this page, you agree to our Terms of Service, Cookie Policy, Privacy Policy and Content Policies. All trademarks are properties of their respective owners. 2008-2024 © Spotlight™ Ltd. All rights reserved.</p>
+                    <p>By continuing past this page, you agree to our Terms of Service, Cookie Policy, Privacy Policy and Content Policies. All trademarks are properties of their respective owners. 2008-2025 © Spotlight™ Ltd. All rights reserved.</p>
                 </div>
             </div>
         </footer>
