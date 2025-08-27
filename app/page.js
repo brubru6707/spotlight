@@ -128,11 +128,14 @@ export default function App() {
               <h1 className="text-2xl md:text-6xl font-bold">
                 Partner with Spotlight
               </h1>
-              <h2 className="text-2xl md:text-6xl font-bold mt-2">
+              <h2 className="text-2xl md:text-6xl font-bold">
                 and grow your business
               </h2>
-              <p className="mt-6 text-sm md:text-base max-w-sm md:max-w-md mx-auto">
-                0% commission for 1st month! Valid for new restaurant partners in select cities.
+              <p className="mt-3 text-sm md:text-base max-w-sm md:max-w-md mx-auto font-bold">
+                0% commission for 1st month!
+              </p>
+              <p className="text-sm md:text-base max-w-sm md:max-w-md mx-auto">
+                 Valid for new restaurant partners in select cities.
               </p>
               <div className="mt-8 px-8 py-3 mb-8 font-semibold text-white bg-blue-600 rounded-lg shadow-lg hover:bg-blue-700 transition-transform transform hover:scale-105 cursor-pointer inline-block">
                 <a href="/signup">
