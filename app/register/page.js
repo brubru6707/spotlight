@@ -169,8 +169,6 @@ export default function Registration() {
         userId: userId,
       };
       
-      console.log("test 1")
-      
       const restaurantDocRef = doc(db, "users", userId);
       await setDoc(restaurantDocRef, restaurantData);
       // 4. Redirect to the dashboard on success

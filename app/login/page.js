@@ -197,10 +197,10 @@ export default function Login() {
             
             <div className="mt-4 text-center">
               <Link 
-                href="/signup" 
+                href="/register" 
                 className="inline-block w-full border border-gray-300 rounded-lg py-3 px-4 font-medium text-gray-700 hover:bg-gray-50 transition"
               >
-                Create your account
+                Register your venue
               </Link>
             </div>
           </div>
