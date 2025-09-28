@@ -15,7 +15,8 @@ import {
   ArrowRightOnRectangleIcon,
   Bars3Icon,
   XMarkIcon,
-  ChartBarSquareIcon
+  ChartBarSquareIcon,
+  SparklesIcon
 } from '@heroicons/react/24/outline';
 import {
   LineChart,
@@ -30,11 +31,12 @@ import {
 } from 'recharts';
 
 // Import the new content components
-import DashboardContent from './../components/DashboardContent';
+import ModernDashboardContent from './../components/ModernDashboardContent';
 import AnalyticsContent from './../components/AnalyticsContent';
 import OrdersContent from './../components/OrdersContent';
 import ClientsContent from './../components/ClientsContent';
 import ReportsContent from './../components/ReportsContent';
+import AIAssistantContent from './../components/AIAssistantContent';
 import { ThemeProvider, useTheme } from '../../context/ThemeContext';
 
 
@@ -77,6 +79,12 @@ const Sidebar = ({ activeView, setActiveView }) => {
           className={`p-2 rounded-lg ${activeView === 'reports' ? 'bg-gray-800 text-white' : 'text-gray-400 hover:bg-gray-800 hover:text-white'}`}
         >
           <DocumentTextIcon className="h-6 w-6" />
+        </button>
+        <button
+          onClick={() => setActiveView('ai-assistant')}
+          className={`p-2 rounded-lg ${activeView === 'ai-assistant' ? 'bg-gray-800 text-white' : 'text-gray-400 hover:bg-gray-800 hover:text-white'}`}
+        >
+          <SparklesIcon className="h-6 w-6" />
         </button>
       </nav>
     </div>
@@ -142,6 +150,13 @@ const MobileMenu = ({ isOpen, onClose, activeView, setActiveView }) => {
           >
             <DocumentTextIcon className="h-6 w-6" />
             <span>Reports</span>
+          </button>
+          <button
+            onClick={() => { setActiveView('ai-assistant'); onClose(); }}
+            className={`flex items-center space-x-3 p-3 rounded-lg ${activeView === 'ai-assistant' ? 'bg-gray-800 text-white' : 'text-gray-400 hover:bg-gray-800 hover:text-white'}`}
+          >
+            <SparklesIcon className="h-6 w-6" />
+            <span>AI Assistant</span>
           </button>
         </nav>
       </div>
@@ -215,7 +230,7 @@ const DashboardMain = () => {
   const renderView = () => {
     switch (activeView) {
       case 'dashboard':
-        return <DashboardContent />;
+        return <ModernDashboardContent />;
       case 'analytics':
         return <AnalyticsContent />;
       case 'orders':
@@ -224,8 +239,10 @@ const DashboardMain = () => {
         return <ClientsContent />;
       case 'reports':
         return <ReportsContent />;
+      case 'ai-assistant':
+        return <AIAssistantContent />;
       default:
-        return <DashboardContent />;
+        return <ModernDashboardContent />;
     }
   };
 
