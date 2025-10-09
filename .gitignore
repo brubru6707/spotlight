@@ -41,6 +41,5 @@ yarn-error.log*
 next-env.d.ts
 
 # Google Cloud Credentials - NEVER COMMIT THESE!
-vertex-ai-credentials.json
 *.json
 .env.local

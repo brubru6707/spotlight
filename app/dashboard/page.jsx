@@ -17,7 +17,6 @@ import {
   ChartBarSquareIcon,
   SparklesIcon
 } from '@heroicons/react/24/outline';
-import AIAssistantContent from '../components/AIAssistantContent';
 import OrdersContent from '../components/OrdersContent';
 import ClientsContent from '../components/ClientsContent';
 import ReportsContent from '../components/ReportsContent';
