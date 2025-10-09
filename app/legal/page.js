@@ -91,7 +91,7 @@ export default function LegalPage() {
             <div className="mt-12 bg-blue-50 rounded-xl p-6 border border-blue-100">
               <h3 className="text-lg font-semibold text-gray-900 mb-3">Need Help?</h3>
               <p className="text-sm text-gray-700 mb-4">
-                If you have any questions about our terms or policies, please don't hesitate to contact us.
+                If you have any questions about our terms or policies, please don&apos;t hesitate to contact us.
               </p>
               <a 
                 href="mailto:legal@spotlight.com" 
