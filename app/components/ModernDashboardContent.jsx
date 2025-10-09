@@ -117,12 +117,12 @@ const ConversionRatioItem = ({ label, percentage, color }) => (
 const ModernDashboardContent = () => (
     <div>
         {/* Header Row */}
-        <div className="flex items-center justify-between mb-6">
+        {/* <div className="flex items-center justify-between mb-6">
             <h1 className="text-2xl font-bold text-gray-800">Dashboard</h1>
             <span className="text-xs text-gray-500 bg-white px-3 py-1.5 rounded-lg shadow-sm">
                 Last updated: Feb 28, 2024
             </span>
-        </div>
+        </div> */}
 
         {/* Top KPIs */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">

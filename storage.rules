@@ -1,0 +1,21 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    // Allow public read access to legal documents folder
+    match /legal/{document} {
+      allow read: if true;
+      allow write: if false; // Only admins can upload via Firebase Console
+    }
+    
+    // Default deny all for other paths
+    match /{allPaths=**} {
+      allow read, write: if false;
+    }
+    
+    // User-specific storage
+    match /users/{userId}/{allPaths=**} {
+      allow read: if true;
+      allow write: if request.auth.uid == userId;
+    }
+  }
+}
