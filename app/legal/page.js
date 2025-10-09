@@ -22,7 +22,7 @@ export default function LegalPage() {
       title: 'Privacy Policy',
       description: 'Learn how we protect and manage your data',
       icon: ShieldCheckIcon,
-      pdfUrl: 'https://firebasestorage.googleapis.com/v0/b/spotlight-wag5yx.firebasestorage.app/o/legal%2FSpotlight\'s%20Privacy%20Policy.pdf?alt=media',
+      pdfUrl: 'https://firebasestorage.googleapis.com/v0/b/spotlight-wag5yx.firebasestorage.app/o/legal%2FSpotlight&apos;s%20Privacy%20Policy.pdf?alt=media',
       size: '186.51 KB',
       lastModified: 'Oct 8, 2025'
     }
