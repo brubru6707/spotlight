@@ -25,6 +25,7 @@ import AnalyticsContent from '../components/AnalyticsContent';
 import SimpleAIAssistant from '../components/SimpleAIAssistant';
 import { ThemeProvider, useTheme } from '../../context/ThemeContext';
 import { MenuBar } from '../../components/ui/bottom-menu';
+import MinimalChatBox from '../../components/ui/minimal-chat-box';
 
 // --- Liquid Glass Global Styles & SVG Filter ---
 const LiquidGlassStyles = () => (
@@ -99,12 +100,6 @@ const Sidebar = ({ activeView, setActiveView }) => {
           >
             <DocumentTextIcon className="h-6 w-6" />
           </button>
-          <button
-            onClick={() => setActiveView('ai-assistant')}
-            className={`p-2 rounded-lg transition-colors ${activeView === 'ai-assistant' ? 'bg-white/30 text-white' : 'text-gray-300 hover:bg-white/20 hover:text-white'}`}
-          >
-            <SparklesIcon className="h-6 w-6" />
-          </button>
         </div>
       </div>
       <div className="flex items-center space-x-4">
@@ -139,7 +134,6 @@ const MobileMenu = ({ isOpen, onClose, activeView, setActiveView }) => {
             { view: 'orders', icon: ClipboardDocumentCheckIcon, label: 'Orders' },
             { view: 'clients', icon: UsersIcon, label: 'Clients' },
             { view: 'reports', icon: DocumentTextIcon, label: 'Reports' },
-            { view: 'ai-assistant', icon: SparklesIcon, label: 'AI Assistant' },
           ].map(({ view, icon: Icon, label }) => (
             <button
               key={view}
@@ -215,11 +209,6 @@ const DashboardMain = () => {
       view: "reports"
     },
     {
-      icon: (props) => <SparklesIcon {...props} />,
-      label: "AI Assistant",
-      view: "ai-assistant"
-    },
-    {
       icon: (props) => <Cog6ToothIcon {...props} />,
       label: "Settings",
       view: "settings"
@@ -268,13 +257,16 @@ const DashboardMain = () => {
         </main>
         
         {/* Bottom Menu Bar */}
-        <div className="fixed bottom-6 left-0 right-0 flex items-center justify-center p-6 z-50">
+        <div className="fixed bottom-6 left-0 right-0 flex items-center justify-center p-6 z-40">
           <MenuBar 
             items={menuItems} 
             activeView={activeView}
             onViewChange={setActiveView}
           />
         </div>
+        
+        {/* Minimal Chat Box */}
+        <MinimalChatBox />
       </div>
     </div>
   );
