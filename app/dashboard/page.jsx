@@ -22,7 +22,9 @@ import ClientsContent from '../components/ClientsContent';
 import ReportsContent from '../components/ReportsContent';
 import ModernDashboardContent from '../components/ModernDashboardContent';
 import AnalyticsContent from '../components/AnalyticsContent';
+import SimpleAIAssistant from '../components/SimpleAIAssistant';
 import { ThemeProvider, useTheme } from '../../context/ThemeContext';
+import { MenuBar } from '../../components/ui/bottom-menu';
 
 // --- Liquid Glass Global Styles & SVG Filter ---
 const LiquidGlassStyles = () => (
@@ -186,6 +188,44 @@ const DashboardMain = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
+  const menuItems = [
+    {
+      icon: (props) => <Squares2X2Icon {...props} />,
+      label: "Dashboard",
+      view: "dashboard"
+    },
+    {
+      icon: (props) => <ChartBarSquareIcon {...props} />,
+      label: "Analytics",
+      view: "analytics"
+    },
+    {
+      icon: (props) => <ClipboardDocumentCheckIcon {...props} />,
+      label: "Orders",
+      view: "orders"
+    },
+    {
+      icon: (props) => <UsersIcon {...props} />,
+      label: "Clients",
+      view: "clients"
+    },
+    {
+      icon: (props) => <DocumentTextIcon {...props} />,
+      label: "Reports",
+      view: "reports"
+    },
+    {
+      icon: (props) => <SparklesIcon {...props} />,
+      label: "AI Assistant",
+      view: "ai-assistant"
+    },
+    {
+      icon: (props) => <Cog6ToothIcon {...props} />,
+      label: "Settings",
+      view: "settings"
+    }
+  ];
+
   const renderView = () => {
     switch (activeView) {
       case 'dashboard': return <ModernDashboardContent />;
@@ -193,7 +233,7 @@ const DashboardMain = () => {
       case 'orders': return <OrdersContent />;
       case 'clients': return <ClientsContent />;
       case 'reports': return <ReportsContent />;
-      // case 'ai-assistant': return <AIAssistantContent />;
+      case 'ai-assistant': return <SimpleAIAssistant />;
       default: return <ModernDashboardContent />;
     }
   };
@@ -223,9 +263,18 @@ const DashboardMain = () => {
           <Sidebar activeView={activeView} setActiveView={setActiveView} />
         </div>
         
-        <main className="px-5 pb-8">
+        <main className="px-5 pb-24">
           {renderView()}
         </main>
+        
+        {/* Bottom Menu Bar */}
+        <div className="fixed bottom-6 left-0 right-0 flex items-center justify-center p-6 z-50">
+          <MenuBar 
+            items={menuItems} 
+            activeView={activeView}
+            onViewChange={setActiveView}
+          />
+        </div>
       </div>
     </div>
   );
