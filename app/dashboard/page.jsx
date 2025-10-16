@@ -40,8 +40,7 @@ const LiquidGlassStyles = () => (
       {/* These styles apply the background animation and the filter effect */}
       <style>{`
         .liquid-glass-bg {
-          background-image: url("https://assets.codepen.io/443195/carl-raw-8Gdayy2Lhi0-unsplash.jpg");
-          background-size: cover;
+          background-color: white;
           animation: drift 60s ease-in-out infinite alternate;
         }
 
@@ -55,6 +54,29 @@ const LiquidGlassStyles = () => (
           backdrop-filter: blur(10px) url(#liquid-glass-filter);
           -webkit-backdrop-filter: blur(10px) url(#liquid-glass-filter);
           border-right: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /*
+          Remove the black focus outline that appears when clicking chart SVGs or other elements.
+          Keep keyboard accessibility by preserving :focus-visible styles; only hide outlines
+          for non-keyboard (mouse/touch) focus: :focus:not(:focus-visible).
+        */
+        button:focus:not(:focus-visible),
+        a:focus:not(:focus-visible),
+        svg:focus:not(:focus-visible),
+        .recharts-wrapper :focus:not(:focus-visible),
+        .recharts-surface :focus:not(:focus-visible),
+        .recharts-layer :focus:not(:focus-visible) {
+          outline: none !important;
+          box-shadow: none !important;
+        }
+
+        /* Some chart elements render <g> or <path> - target them too when focused via mouse */
+        .recharts-wrapper g:focus:not(:focus-visible),
+        .recharts-wrapper path:focus:not(:focus-visible),
+        .recharts-wrapper circle:focus:not(:focus-visible) {
+          outline: none !important;
+          box-shadow: none !important;
         }
       `}</style>
     </>
@@ -236,28 +258,29 @@ const DashboardMain = () => {
       <MobileMenu isOpen={isMenuOpen} onClose={toggleMenu} activeView={activeView} setActiveView={setActiveView} />
       
       <div className="pt-5">
-        {/* Mobile Header - only shows on mobile */}
-        <div className="p-4 md:hidden flex justify-between items-center mx-5 mb-[25px]">
-          <h1 className="text-xl font-bold text-white">Dashboard</h1>
+        {/* Mobile Header - hamburger on top-left to open side menu */}
+        <div className="p-4 md:hidden flex items-center mx-5 mb-[25px]">
           <button 
             onClick={toggleMenu} 
-            className="p-2 rounded-full text-white bg-black/20"
+            aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
+            className="p-2 rounded-full text-white bg-black/20 mr-4"
           >
-            <Bars3Icon className="h-6 w-6" />
+            {isMenuOpen ? <XMarkIcon className="h-6 w-6" /> : <Bars3Icon className="h-6 w-6" />}
           </button>
+          <h1 className="text-xl font-bold text-white">Dashboard</h1>
         </div>
         
-        {/* Top Navigation - hidden on mobile */}
+        {/* Top Navigation removed on desktop - we rely on bottom MenuBar for desktop */}
         <div className="hidden md:block">
-          <Sidebar activeView={activeView} setActiveView={setActiveView} />
+          {/* Intentionally left blank: desktop uses the bottom MenuBar instead of the top Sidebar */}
         </div>
         
         <main className="px-5 pb-24">
           {renderView()}
         </main>
         
-        {/* Bottom Menu Bar */}
-        <div className="fixed bottom-6 left-0 right-0 flex items-center justify-center p-6 z-40">
+        {/* Bottom Menu Bar - visible on md and larger only */}
+        <div className="hidden md:flex fixed bottom-6 left-0 right-0 items-center justify-center p-6 z-40">
           <MenuBar 
             items={menuItems} 
             activeView={activeView}
