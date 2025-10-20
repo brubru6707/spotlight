@@ -15,7 +15,7 @@ import {
   Bars3Icon,
   XMarkIcon,
   ChartBarSquareIcon,
-  SparklesIcon
+  CurrencyDollarIcon
 } from '@heroicons/react/24/outline';
 import OrdersContent from '../components/OrdersContent';
 import ClientsContent from '../components/ClientsContent';
@@ -24,6 +24,7 @@ import ModernDashboardContent from '../components/ModernDashboardContent';
 import AnalyticsContent from '../components/AnalyticsContent';
 import SimpleAIAssistant from '../components/SimpleAIAssistant';
 // Theme removed: defaulting to light theme
+import PricingWithChart from '../components/PricingWithChart';
 import { MenuBar } from '../../components/ui/bottom-menu';
 import MinimalChatBox from '../../components/ui/minimal-chat-box';
 
@@ -224,6 +225,11 @@ const DashboardMain = () => {
       view: "reports"
     },
     {
+      icon: (props) => <CurrencyDollarIcon {...props} />,
+      label: "Pricing",
+      view: "pricing"
+    },
+    {
       icon: (props) => <Cog6ToothIcon {...props} />,
       label: "Settings",
       view: "settings"
@@ -237,6 +243,7 @@ const DashboardMain = () => {
       case 'orders': return <OrdersContent />;
       case 'clients': return <ClientsContent />;
       case 'reports': return <ReportsContent />;
+      case 'pricing': return <PricingWithChart />;
       case 'ai-assistant': return <SimpleAIAssistant />;
       default: return <ModernDashboardContent />;
     }
