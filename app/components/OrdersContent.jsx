@@ -3,7 +3,7 @@ import {
   ClipboardDocumentCheckIcon,
   DocumentTextIcon
 } from '@heroicons/react/24/outline';
-import { useTheme } from '../../context/ThemeContext';
+// Theme removed: defaulting to light theme
 
 const orderListData = [
   {
@@ -33,18 +33,12 @@ const orderListData = [
 ];
 
 const StatCard = ({ title, value, icon, percentage, color, iconColor }) => {
-  const { isDarkMode } = useTheme();
-  
   return (
-  <div className={`p-4 md:p-6 rounded-2xl md:rounded-3xl shadow-sm mb-4 w-full ${
-    isDarkMode 
-      ? 'bg-gray-800 border border-gray-700' 
-      : color || 'bg-white'
-  }`}>
+  <div className={`p-4 md:p-6 rounded-2xl md:rounded-3xl shadow-sm mb-4 w-full ${color || 'bg-white'}`}>
     <div className="flex items-start justify-between">
       <div className="flex-1">
-        <h3 className={`text-xs md:text-sm font-medium ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>{title}</h3>
-        <p className={`text-xl md:text-2xl font-bold mt-1 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>{value}</p>
+  <h3 className={`text-xs md:text-sm font-medium text-gray-500`}>{title}</h3>
+  <p className={`text-xl md:text-2xl font-bold mt-1 text-gray-900`}>{value}</p>
       </div>
       <div
         className={`w-8 h-8 md:w-10 md:h-10 flex items-center justify-center rounded-lg md:rounded-xl ${iconColor} flex-shrink-0`}
@@ -52,34 +46,29 @@ const StatCard = ({ title, value, icon, percentage, color, iconColor }) => {
         {icon}
       </div>
     </div>
-    <div className={`w-full h-1 rounded-full mt-3 md:mt-4 ${isDarkMode ? 'bg-gray-700' : 'bg-gray-200'}`}>
+    <div className={`w-full h-1 rounded-full mt-3 md:mt-4 bg-gray-200`}>
       <div
         className="h-1 rounded-full"
         style={{ width: `${percentage}%` }}
       ></div>
     </div>
-    <p className={`text-xs md:text-sm mt-2 ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>
-      <span className={`font-semibold ${isDarkMode ? 'text-white' : 'text-black'}`}>{percentage}%</span> increase
+    <p className={`text-xs md:text-sm mt-2 text-gray-500`}>
+      <span className={`font-semibold text-gray-900`}>{percentage}%</span> increase
     </p>
   </div>
   );
 };
 
 const OrderListMobile = ({ orderListData }) => {
-  const { isDarkMode } = useTheme();
   
   return (
   <div className="grid grid-cols-1 gap-3 md:hidden">
     {orderListData.map((order) => (
-      <div key={order.id} className={`p-4 rounded-xl shadow-sm border ${
-        isDarkMode 
-          ? 'bg-gray-800 border-gray-700' 
-          : 'bg-white border-gray-200'
-      }`}>
+      <div key={order.id} className={`p-4 rounded-xl shadow-sm border bg-white border-gray-200`}>
         <div className="flex items-start justify-between mb-3">
           <div className="flex-1 pr-2">
-            <span className={`text-base font-semibold block ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>{order.customer}</span>
-            <span className={`text-sm ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>{order.id}</span>
+            <span className={`text-base font-semibold block text-gray-900`}>{order.customer}</span>
+            <span className={`text-sm text-gray-500`}>{order.id}</span>
           </div>
           <span
             className={`px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-full flex-shrink-0 ${
@@ -93,26 +82,22 @@ const OrderListMobile = ({ orderListData }) => {
             {order.status}
           </span>
         </div>
-        <div className={`space-y-1 text-sm ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>
+        <div className={`space-y-1 text-sm text-gray-500`}>
           <div className="flex justify-between">
             <span>Date:</span>
-            <span className={`font-medium ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>{order.date}</span>
+            <span className={`font-medium text-gray-900`}>{order.date}</span>
           </div>
           <div className="flex justify-between">
             <span>Amount:</span>
-            <span className={`font-semibold ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>{order.amount}</span>
+            <span className={`font-semibold text-gray-900`}>{order.amount}</span>
           </div>
           <div className="pt-1">
             <span className="text-xs">Location:</span>
-            <p className={`text-xs mt-1 break-words ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>{order.location}</p>
+            <p className={`text-xs mt-1 break-words text-gray-600`}>{order.location}</p>
           </div>
         </div>
         <div className="mt-4 flex justify-end">
-          <button className={`p-2 rounded-lg transition-colors ${
-            isDarkMode 
-              ? 'text-gray-400 hover:text-gray-200 hover:bg-gray-700' 
-              : 'text-gray-500 hover:text-gray-700 hover:bg-gray-100'
-          }`}>
+          <button className={`p-2 rounded-lg transition-colors text-gray-500 hover:text-gray-700 hover:bg-gray-100`}>
             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z" />
             </svg>
@@ -125,20 +110,13 @@ const OrderListMobile = ({ orderListData }) => {
 };
 
 const OrderListDesktop = ({ orderListData }) => {
-  const { isDarkMode } = useTheme();
-  
+
   return (
-  <div className={`rounded-xl overflow-hidden shadow-sm border hidden md:block ${
-    isDarkMode 
-      ? 'bg-gray-800 border-gray-700' 
-      : 'bg-white border-gray-200'
-  }`}>
+  <div className={`rounded-xl overflow-hidden shadow-sm border hidden md:block bg-white border-gray-200`}>
     <div className="overflow-x-auto">
-      <table className={`min-w-full divide-y ${isDarkMode ? 'divide-gray-700' : 'divide-gray-200'}`}>
-        <thead className={isDarkMode ? 'bg-gray-700' : 'bg-gray-50'}>
-          <tr className={`text-left text-xs font-medium uppercase tracking-wider ${
-            isDarkMode ? 'text-gray-300' : 'text-gray-500'
-          }`}>
+      <table className={`min-w-full divide-y divide-gray-200`}>
+        <thead className={'bg-gray-50'}>
+          <tr className={`text-left text-xs font-medium uppercase tracking-wider text-gray-500`}>
             <th className="px-3 lg:px-4 py-3">No</th>
             <th className="px-3 lg:px-4 py-3">ID</th>
             <th className="px-3 lg:px-4 py-3">Date</th>
@@ -149,33 +127,15 @@ const OrderListDesktop = ({ orderListData }) => {
             <th className="px-3 lg:px-4 py-3">Action</th>
           </tr>
         </thead>
-        <tbody className={`divide-y ${
-          isDarkMode 
-            ? 'bg-gray-800 divide-gray-700' 
-            : 'bg-white divide-gray-200'
-        }`}>
+        <tbody className={`divide-y bg-white divide-gray-200`}>
           {orderListData.map((order, index) => (
-            <tr key={order.id} className={`transition-colors ${
-              isDarkMode ? 'hover:bg-gray-700' : 'hover:bg-gray-50'
-            }`}>
-              <td className={`px-3 lg:px-4 py-4 text-sm font-medium ${
-                isDarkMode ? 'text-white' : 'text-gray-900'
-              }`}>{index + 1}</td>
-              <td className={`px-3 lg:px-4 py-4 text-sm ${
-                isDarkMode ? 'text-gray-400' : 'text-gray-500'
-              }`}>{order.id}</td>
-              <td className={`px-3 lg:px-4 py-4 text-sm whitespace-nowrap ${
-                isDarkMode ? 'text-gray-400' : 'text-gray-500'
-              }`}>{order.date}</td>
-              <td className={`px-3 lg:px-4 py-4 text-sm font-semibold ${
-                isDarkMode ? 'text-white' : 'text-gray-900'
-              }`}>{order.customer}</td>
-              <td className={`px-3 lg:px-4 py-4 text-sm max-w-32 lg:max-w-xs truncate ${
-                isDarkMode ? 'text-gray-400' : 'text-gray-500'
-              }`}>{order.location}</td>
-              <td className={`px-3 lg:px-4 py-4 text-sm font-semibold ${
-                isDarkMode ? 'text-white' : 'text-gray-900'
-              }`}>{order.amount}</td>
+            <tr key={order.id} className={`transition-colors hover:bg-gray-50`}>
+              <td className={`px-3 lg:px-4 py-4 text-sm font-medium text-gray-900`}>{index + 1}</td>
+              <td className={`px-3 lg:px-4 py-4 text-sm text-gray-500`}>{order.id}</td>
+              <td className={`px-3 lg:px-4 py-4 text-sm whitespace-nowrap text-gray-500`}>{order.date}</td>
+              <td className={`px-3 lg:px-4 py-4 text-sm font-semibold text-gray-900`}>{order.customer}</td>
+              <td className={`px-3 lg:px-4 py-4 text-sm max-w-32 lg:max-w-xs truncate text-gray-500`}>{order.location}</td>
+              <td className={`px-3 lg:px-4 py-4 text-sm font-semibold text-gray-900`}>{order.amount}</td>
               <td className="px-3 lg:px-4 py-4 text-sm">
                 <span
                   className={`px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-full ${
@@ -190,11 +150,7 @@ const OrderListDesktop = ({ orderListData }) => {
                 </span>
               </td>
               <td className="px-3 lg:px-4 py-4 text-sm font-medium">
-                <button className={`p-2 rounded-lg transition-colors ${
-                  isDarkMode 
-                    ? 'text-gray-400 hover:text-gray-200 hover:bg-gray-700' 
-                    : 'text-gray-500 hover:text-gray-700 hover:bg-gray-100'
-                }`}>
+                <button className={`p-2 rounded-lg transition-colors text-gray-500 hover:text-gray-700 hover:bg-gray-100`}>
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z" />
                   </svg>
@@ -210,13 +166,9 @@ const OrderListDesktop = ({ orderListData }) => {
 };
 
 const OrdersContent = () => {
-  const { isDarkMode } = useTheme();
-  
   return (
-    <div className={`mt-8 p-6 rounded-3xl shadow-sm ${
-      isDarkMode ? 'bg-gray-800 border border-gray-700' : 'bg-white'
-    }`}>
-      <h2 className={`text-xl font-bold mb-6 ${isDarkMode ? 'text-white' : 'text-gray-800'}`}>Order List</h2>
+    <div className={`mt-8 p-6 rounded-3xl shadow-sm`}>
+      <h2 className={`text-xl font-bold mb-6 text-gray-800`}>Order List</h2>
       <div className="flex items-center justify-between mb-6">
         <StatCard
           title="Total Orders"

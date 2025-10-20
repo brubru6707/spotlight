@@ -1,6 +1,5 @@
 'use client';
 import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip } from 'recharts';
-import { useTheme } from '../../context/ThemeContext';
 
 const dummyAnalyticsData = [
   { name: 'Week 1', sales: 4000, clients: 2400 },
@@ -13,19 +12,14 @@ const dummyAnalyticsData = [
 ];
 
 const AnalyticsContent = () => {
-  const { isDarkMode } = useTheme();
-  
+  // Default to light theme
   return (
-  <div className={`p-6 rounded-3xl shadow-sm ${
-    isDarkMode ? 'bg-gray-800 border border-gray-700' : 'bg-gray-50'
-  }`}>
-    <h2 className={`text-xl font-bold mb-6 ${isDarkMode ? 'text-white' : 'text-gray-800'}`}>Sales & Client Analytics</h2>
+  <div className={`p-6 rounded-3xl shadow-sm bg-gray-50`}>
+    <h2 className={`text-xl font-bold mb-6 text-gray-800`}>Sales & Client Analytics</h2>
     <div className="flex flex-col md:flex-row gap-6">
-      <div className={`p-6 rounded-3xl shadow-sm w-full ${
-        isDarkMode ? 'bg-gray-700 border border-gray-600' : 'bg-white'
-      }`}>
-        <h3 className={`text-lg font-semibold mb-4 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>Weekly Performance</h3>
-        <div className={`flex items-center space-x-2 text-sm ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>
+      <div className={`p-6 rounded-3xl shadow-sm w-full bg-white`}>
+        <h3 className={`text-lg font-semibold mb-4 text-gray-900`}>Weekly Performance</h3>
+        <div className={`flex items-center space-x-2 text-sm text-gray-500`}>
           <span className="flex items-center">
             <span className="w-2 h-2 rounded-full bg-indigo-600 mr-1"></span> Sales
           </span>
@@ -40,11 +34,11 @@ const AnalyticsContent = () => {
             <YAxis axisLine={false} tickLine={false} />
             <Tooltip 
               contentStyle={{
-                backgroundColor: isDarkMode ? '#374151' : 'white',
+                backgroundColor: 'white',
                 border: 'none',
                 borderRadius: '8px',
                 boxShadow: '0 4px 6px rgba(0,0,0,0.1)',
-                color: isDarkMode ? 'white' : 'black',
+                color: 'black',
               }}
             />
             <Bar dataKey="sales" fill="#4F46E5" radius={[4, 4, 0, 0]} />

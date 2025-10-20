@@ -26,7 +26,7 @@ import {
   YAxis,
   CartesianGrid,
 } from 'recharts';
-import { useTheme } from '../../context/ThemeContext';
+// Theme removed: defaulting to light theme
 
 // Dummy data for the charts and tables
 const revenueData = [
@@ -47,18 +47,12 @@ const orderSummaryData = [
 ];
 
 const StatCard = ({ title, value, icon, percentage, color, iconColor }) => {
-  const { isDarkMode } = useTheme();
-  
   return (
-  <div className={`p-6 rounded-3xl shadow-sm flex-1 ${
-    isDarkMode 
-      ? 'bg-gray-800 border border-gray-700' 
-      : color || 'bg-white'
-  }`}>
+  <div className={`p-6 rounded-3xl shadow-sm flex-1 ${color || 'bg-white'}`}>
     <div className="flex items-start justify-between">
       <div>
-        <h3 className={`text-sm font-medium ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>{title}</h3>
-        <p className={`text-2xl font-bold mt-1 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>{value}</p>
+        <h3 className={`text-sm font-medium text-gray-500`}>{title}</h3>
+        <p className={`text-2xl font-bold mt-1 text-gray-900`}>{value}</p>
       </div>
       <div
         className={`w-10 h-10 flex items-center justify-center rounded-xl ${iconColor}`}
@@ -66,14 +60,14 @@ const StatCard = ({ title, value, icon, percentage, color, iconColor }) => {
         {icon}
       </div>
     </div>
-    <div className={`w-full h-1 rounded-full mt-4 ${isDarkMode ? 'bg-gray-700' : 'bg-gray-200'}`}>
+    <div className={`w-full h-1 rounded-full mt-4 bg-gray-200`}>
       <div
         className="h-1 rounded-full"
         style={{ width: `${percentage}%` }}
       ></div>
     </div>
-    <p className={`text-sm mt-2 ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>
-      <span className={`font-semibold ${isDarkMode ? 'text-white' : 'text-black'}`}>{percentage}%</span> increase
+    <p className={`text-sm mt-2 text-gray-500`}>
+      <span className={`font-semibold text-gray-900`}>{percentage}%</span> increase
     </p>
   </div>
   );
@@ -81,8 +75,6 @@ const StatCard = ({ title, value, icon, percentage, color, iconColor }) => {
 
 const DashboardContent = () => {
   const [selectedTimeframe, setSelectedTimeframe] = useState('Monthly');
-  const { isDarkMode } = useTheme();
-
   return (
     <>
       <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -122,24 +114,16 @@ const DashboardContent = () => {
         />
       </section>
       <section className="mt-8 grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <div className={`p-6 rounded-3xl shadow-sm ${
-          isDarkMode ? 'bg-gray-800 border border-gray-700' : 'bg-white'
-        }`}>
+        <div className={`p-6 rounded-3xl shadow-sm bg-white`}>
           <div className="flex items-center justify-between mb-4">
-            <h2 className={`text-lg font-semibold ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>Revenue</h2>
-            <div className={`flex items-center space-x-2 p-1 rounded-full text-sm ${
-              isDarkMode ? 'bg-gray-700' : 'bg-gray-100'
-            }`}>
+            <h2 className={`text-lg font-semibold text-gray-900`}>Revenue</h2>
+            <div className={`flex items-center space-x-2 p-1 rounded-full text-sm bg-gray-100`}>
               <button
                 onClick={() => setSelectedTimeframe('Monthly')}
                 className={`px-3 py-1 rounded-full transition-colors ${
                   selectedTimeframe === 'Monthly'
-                    ? isDarkMode 
-                      ? 'bg-gray-600 shadow text-white' 
-                      : 'bg-white shadow text-gray-900'
-                    : isDarkMode 
-                      ? 'text-gray-400 hover:text-gray-200' 
-                      : 'text-gray-500 hover:text-gray-700'
+                    ? 'bg-white shadow text-gray-900'
+                    : 'text-gray-500 hover:text-gray-700'
                 }`}
               >
                 Monthly
@@ -148,12 +132,8 @@ const DashboardContent = () => {
                 onClick={() => setSelectedTimeframe('Weekly')}
                 className={`px-3 py-1 rounded-full transition-colors ${
                   selectedTimeframe === 'Weekly'
-                    ? isDarkMode 
-                      ? 'bg-gray-600 shadow text-white' 
-                      : 'bg-white shadow text-gray-900'
-                    : isDarkMode 
-                      ? 'text-gray-400 hover:text-gray-200' 
-                      : 'text-gray-500 hover:text-gray-700'
+                    ? 'bg-white shadow text-gray-900'
+                    : 'text-gray-500 hover:text-gray-700'
                 }`}
               >
                 Weekly
@@ -162,12 +142,8 @@ const DashboardContent = () => {
                 onClick={() => setSelectedTimeframe('Today')}
                 className={`px-3 py-1 rounded-full transition-colors ${
                   selectedTimeframe === 'Today'
-                    ? isDarkMode 
-                      ? 'bg-gray-600 shadow text-white' 
-                      : 'bg-white shadow text-gray-900'
-                    : isDarkMode 
-                      ? 'text-gray-400 hover:text-gray-200' 
-                      : 'text-gray-500 hover:text-gray-700'
+                    ? 'bg-white shadow text-gray-900'
+                    : 'text-gray-500 hover:text-gray-700'
                 }`}
               >
                 Today
@@ -180,11 +156,11 @@ const DashboardContent = () => {
               <XAxis dataKey="name" axisLine={false} tickLine={false} />
               <Tooltip
                 contentStyle={{
-                  backgroundColor: isDarkMode ? '#374151' : 'white',
+                  backgroundColor: 'white',
                   border: 'none',
                   borderRadius: '8px',
                   boxShadow: '0 4px 6px rgba(0,0,0,0.1)',
-                  color: isDarkMode ? 'white' : 'black',
+                  color: 'black',
                 }}
                 formatter={(value) => [`$${value / 1000}k`, '']}
               />
@@ -206,24 +182,16 @@ const DashboardContent = () => {
             </LineChart>
           </ResponsiveContainer>
         </div>
-        <div className={`p-6 rounded-3xl shadow-sm ${
-          isDarkMode ? 'bg-gray-800 border border-gray-700' : 'bg-white'
-        }`}>
+          <div className={`p-6 rounded-3xl shadow-sm bg-white`}>
           <div className="flex items-center justify-between mb-4">
-            <h2 className={`text-lg font-semibold ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>Order Summary</h2>
-            <div className={`flex items-center space-x-2 p-1 rounded-full text-sm ${
-              isDarkMode ? 'bg-gray-700' : 'bg-gray-100'
-            }`}>
+            <h2 className={`text-lg font-semibold text-gray-900`}>Order Summary</h2>
+            <div className={`flex items-center space-x-2 p-1 rounded-full text-sm bg-gray-100`}>
               <button
                 onClick={() => setSelectedTimeframe('Monthly')}
                 className={`px-3 py-1 rounded-full transition-colors ${
                   selectedTimeframe === 'Monthly'
-                    ? isDarkMode 
-                      ? 'bg-gray-600 shadow text-white' 
-                      : 'bg-white shadow text-gray-900'
-                    : isDarkMode 
-                      ? 'text-gray-400 hover:text-gray-200' 
-                      : 'text-gray-500 hover:text-gray-700'
+                    ? 'bg-white shadow text-gray-900'
+                    : 'text-gray-500 hover:text-gray-700'
                 }`}
               >
                 Monthly
@@ -232,12 +200,8 @@ const DashboardContent = () => {
                 onClick={() => setSelectedTimeframe('Weekly')}
                 className={`px-3 py-1 rounded-full transition-colors ${
                   selectedTimeframe === 'Weekly'
-                    ? isDarkMode 
-                      ? 'bg-gray-600 shadow text-white' 
-                      : 'bg-white shadow text-gray-900'
-                    : isDarkMode 
-                      ? 'text-gray-400 hover:text-gray-200' 
-                      : 'text-gray-500 hover:text-gray-700'
+                    ? 'bg-white shadow text-gray-900'
+                    : 'text-gray-500 hover:text-gray-700'
                 }`}
               >
                 Weekly
@@ -246,12 +210,8 @@ const DashboardContent = () => {
                 onClick={() => setSelectedTimeframe('Today')}
                 className={`px-3 py-1 rounded-full transition-colors ${
                   selectedTimeframe === 'Today'
-                    ? isDarkMode 
-                      ? 'bg-gray-600 shadow text-white' 
-                      : 'bg-white shadow text-gray-900'
-                    : isDarkMode 
-                      ? 'text-gray-400 hover:text-gray-200' 
-                      : 'text-gray-500 hover:text-gray-700'
+                    ? 'bg-white shadow text-gray-900'
+                    : 'text-gray-500 hover:text-gray-700'
                 }`}
               >
                 Today
@@ -265,11 +225,11 @@ const DashboardContent = () => {
               <YAxis axisLine={false} tickLine={false} />
               <Tooltip 
                 contentStyle={{
-                  backgroundColor: isDarkMode ? '#374151' : 'white',
+                  backgroundColor: 'white',
                   border: 'none',
                   borderRadius: '8px',
                   boxShadow: '0 4px 6px rgba(0,0,0,0.1)',
-                  color: isDarkMode ? 'white' : 'black',
+                  color: 'black',
                 }}
               />
               <Bar

@@ -23,7 +23,7 @@ import ReportsContent from '../components/ReportsContent';
 import ModernDashboardContent from '../components/ModernDashboardContent';
 import AnalyticsContent from '../components/AnalyticsContent';
 import SimpleAIAssistant from '../components/SimpleAIAssistant';
-import { ThemeProvider, useTheme } from '../../context/ThemeContext';
+// Theme removed: defaulting to light theme
 import { MenuBar } from '../../components/ui/bottom-menu';
 import MinimalChatBox from '../../components/ui/minimal-chat-box';
 
@@ -84,51 +84,49 @@ const LiquidGlassStyles = () => (
 
 
 const Sidebar = ({ activeView, setActiveView }) => {
-  const { isDarkMode } = useTheme();
-  
-  // Transformed into a top navigation bar with horizontal layout
+  // Transformed into a top navigation bar with horizontal layout (light theme)
   return (
-    <nav className="w-full shadow-lg p-4 flex items-center justify-between text-white font-black bg-black/20 liquid-glass-sidebar mb-[25px] mx-5 rounded-[50px]" style={{ width: 'calc(100% - 40px)' }}>
+    <nav className="w-full shadow-lg p-4 flex items-center justify-between text-gray-900 font-black bg-white/60 liquid-glass-sidebar mb-[25px] mx-5 rounded-[50px]" style={{ width: 'calc(100% - 40px)' }}>
       <div className="flex items-center space-x-6">
-        <div className="w-10 h-10 rounded-full bg-white/20"></div>
+        <div className="w-10 h-10 rounded-full bg-white/40 border border-gray-200"></div>
         <div className="flex items-center space-x-4">
           <button
             onClick={() => setActiveView('dashboard')}
-            className={`p-2 rounded-lg transition-colors ${activeView === 'dashboard' ? 'bg-white/30 text-white' : 'text-gray-300 hover:bg-white/20 hover:text-white'}`}
+            className={`p-2 rounded-lg transition-colors ${activeView === 'dashboard' ? 'bg-gray-100 text-gray-900' : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'}`}
           >
             <Squares2X2Icon className="h-6 w-6" />
           </button>
           <button
             onClick={() => setActiveView('analytics')}
-            className={`p-2 rounded-lg transition-colors ${activeView === 'analytics' ? 'bg-white/30 text-white' : 'text-gray-300 hover:bg-white/20 hover:text-white'}`}
+            className={`p-2 rounded-lg transition-colors ${activeView === 'analytics' ? 'bg-gray-100 text-gray-900' : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'}`}
           >
             <ChartBarSquareIcon className="h-6 w-6" />
           </button>
           <button
             onClick={() => setActiveView('orders')}
-            className={`p-2 rounded-lg transition-colors ${activeView === 'orders' ? 'bg-white/30 text-white' : 'text-gray-300 hover:bg-white/20 hover:text-white'}`}
+            className={`p-2 rounded-lg transition-colors ${activeView === 'orders' ? 'bg-gray-100 text-gray-900' : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'}`}
           >
             <ClipboardDocumentCheckIcon className="h-6 w-6" />
           </button>
           <button
             onClick={() => setActiveView('clients')}
-            className={`p-2 rounded-lg transition-colors ${activeView === 'clients' ? 'bg-white/30 text-white' : 'text-gray-300 hover:bg-white/20 hover:text-white'}`}
+            className={`p-2 rounded-lg transition-colors ${activeView === 'clients' ? 'bg-gray-100 text-gray-900' : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'}`}
           >
             <UsersIcon className="h-6 w-6" />
           </button>
           <button
             onClick={() => setActiveView('reports')}
-            className={`p-2 rounded-lg transition-colors ${activeView === 'reports' ? 'bg-white/30 text-white' : 'text-gray-300 hover:bg-white/20 hover:text-white'}`}
+            className={`p-2 rounded-lg transition-colors ${activeView === 'reports' ? 'bg-gray-100 text-gray-900' : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'}`}
           >
             <DocumentTextIcon className="h-6 w-6" />
           </button>
         </div>
       </div>
       <div className="flex items-center space-x-4">
-        <a href="#" className="p-2 rounded-lg text-gray-300 hover:bg-white/20 hover:text-white">
+        <a href="#" className="p-2 rounded-lg text-gray-600 hover:bg-gray-50 hover:text-gray-900">
           <Cog6ToothIcon className="h-6 w-6" />
         </a>
-        <a href="#" className="p-2 rounded-lg text-gray-300 hover:bg-white/20 hover:text-white">
+        <a href="#" className="p-2 rounded-lg text-gray-600 hover:bg-gray-50 hover:text-gray-900">
           <ArrowRightOnRectangleIcon className="h-6 w-6" />
         </a>
       </div>
@@ -137,16 +135,16 @@ const Sidebar = ({ activeView, setActiveView }) => {
 };
 
 const MobileMenu = ({ isOpen, onClose, activeView, setActiveView }) => {
-    // Applied liquid glass effect to mobile menu as well for consistency.
-  const menuClasses = `fixed inset-y-0 left-0 transform ${isOpen ? 'translate-x-0' : '-translate-x-full'} transition-transform duration-300 ease-in-out w-64 p-4 z-50 flex flex-col justify-between text-white md:hidden bg-black/20 liquid-glass-sidebar`;
+    // Applied liquid glass effect to mobile menu as well for consistency (light)
+  const menuClasses = `fixed inset-y-0 left-0 transform ${isOpen ? 'translate-x-0' : '-translate-x-full'} transition-transform duration-300 ease-in-out w-64 p-4 z-50 flex flex-col justify-between text-gray-900 md:hidden bg-white/60 liquid-glass-sidebar`;
 
   return (
     <div className={menuClasses}>
       <div>
         <div className="flex justify-between items-center mb-8">
-          <div className="w-10 h-10 rounded-full bg-white/20"></div>
+          <div className="w-10 h-10 rounded-full bg-white/40 border border-gray-200"></div>
           <button onClick={onClose}>
-            <XMarkIcon className="h-6 w-6 text-gray-300" />
+            <XMarkIcon className="h-6 w-6 text-gray-600" />
           </button>
         </div>
         <nav className="flex flex-col space-y-2">
@@ -160,7 +158,7 @@ const MobileMenu = ({ isOpen, onClose, activeView, setActiveView }) => {
             <button
               key={view}
               onClick={() => { setActiveView(view); onClose(); }}
-              className={`flex items-center space-x-3 p-3 rounded-lg text-left transition-colors ${activeView === view ? 'bg-white/30 text-white' : 'text-gray-300 hover:bg-white/20 hover:text-white'}`}
+              className={`flex items-center space-x-3 p-3 rounded-lg text-left transition-colors ${activeView === view ? 'bg-gray-100 text-gray-900' : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'}`}
             >
               <Icon className="h-6 w-6" />
               <span>{label}</span>
@@ -169,14 +167,14 @@ const MobileMenu = ({ isOpen, onClose, activeView, setActiveView }) => {
         </nav>
       </div>
       <div className="flex flex-col space-y-2">
-        <a href="#" className="flex items-center space-x-3 p-3 rounded-lg text-gray-300 hover:bg-white/20 hover:text-white">
-          <Cog6ToothIcon className="h-6 w-6" />
-          <span>Settings</span>
-        </a>
-        <a href="#" className="flex items-center space-x-3 p-3 rounded-lg text-gray-300 hover:bg-white/20 hover:text-white">
-          <ArrowRightOnRectangleIcon className="h-6 w-6" />
-          <span>Logout</span>
-        </a>
+          <a href="#" className="flex items-center space-x-3 p-3 rounded-lg text-gray-600 hover:bg-gray-50 hover:text-gray-900">
+            <Cog6ToothIcon className="h-6 w-6" />
+            <span>Settings</span>
+          </a>
+          <a href="#" className="flex items-center space-x-3 p-3 rounded-lg text-gray-600 hover:bg-gray-50 hover:text-gray-900">
+            <ArrowRightOnRectangleIcon className="h-6 w-6" />
+            <span>Logout</span>
+          </a>
       </div>
     </div>
   );
@@ -184,12 +182,8 @@ const MobileMenu = ({ isOpen, onClose, activeView, setActiveView }) => {
 
 // Header is not directly used in the final layout to better showcase the effect, but kept for completeness
 const Header = ({ onMenuToggle }) => {
-  const { isDarkMode, toggleTheme } = useTheme();
-  
   return (
-    <header className={`flex items-center justify-between p-4 md:p-6 shadow-sm rounded-xl ${
-      isDarkMode ? 'bg-gray-800 text-white' : 'bg-white text-gray-900'
-    }`}>
+    <header className={`flex items-center justify-between p-4 md:p-6 shadow-sm rounded-xl bg-white text-gray-900`}>
       {/* Header content from original code */}
     </header>
   );
@@ -198,7 +192,6 @@ const Header = ({ onMenuToggle }) => {
 const DashboardMain = () => {
   const [activeView, setActiveView] = useState('dashboard');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { isDarkMode } = useTheme();
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -263,11 +256,11 @@ const DashboardMain = () => {
           <button 
             onClick={toggleMenu} 
             aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
-            className="p-2 rounded-full text-white bg-black/20 mr-4"
+            className="p-2 rounded-full text-gray-900 bg-white/60 mr-4 border border-gray-200"
           >
             {isMenuOpen ? <XMarkIcon className="h-6 w-6" /> : <Bars3Icon className="h-6 w-6" />}
           </button>
-          <h1 className="text-xl font-bold text-white">Dashboard</h1>
+          <h1 className="text-xl font-bold text-gray-900">Dashboard</h1>
         </div>
         
         {/* Top Navigation removed on desktop - we rely on bottom MenuBar for desktop */}
@@ -295,10 +288,4 @@ const DashboardMain = () => {
   );
 };
 
-const Dashboard = () => (
-  <ThemeProvider>
-    <DashboardMain />
-  </ThemeProvider>
-);
-
-export default Dashboard;
+export default DashboardMain;

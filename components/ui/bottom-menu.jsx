@@ -48,10 +48,9 @@ export function MenuBar({ items, activeView, onViewChange, className, ...props }
               ref={tooltipRef}
               className={cn(
                 "h-7 px-3 rounded-lg inline-flex justify-center items-center overflow-hidden",
-                "bg-background/95 backdrop-blur",
-                "border border-border/50",
-                "shadow-[0_0_0_1px_rgba(0,0,0,0.08)]",
-                "dark:border-border/50 dark:shadow-[0_0_0_1px_rgba(255,255,255,0.08)]"
+                "bg-white/95 backdrop-blur",
+                "border border-gray-200",
+                "shadow-[0_0_0_1px_rgba(0,0,0,0.04)]"
               )}
               initial={{ x: tooltipPosition.left }}
               animate={{ x: tooltipPosition.left }}
@@ -70,10 +69,9 @@ export function MenuBar({ items, activeView, onViewChange, className, ...props }
         ref={menuRef}
         className={cn(
           "h-10 px-1.5 inline-flex justify-center items-center gap-[3px] overflow-hidden z-10",
-          "rounded-full bg-background/95 backdrop-blur",
-          "border border-border/50",
-          "shadow-[0_0_0_1px_rgba(0,0,0,0.08),0_8px_16px_-4px_rgba(0,0,0,0.1)]",
-          "dark:border-border/50 dark:shadow-[0_0_0_1px_rgba(255,255,255,0.08),0_8px_16px_-4px_rgba(0,0,0,0.2)]"
+          "rounded-full bg-white/95 backdrop-blur",
+          "border border-gray-200",
+          "shadow-[0_0_0_1px_rgba(0,0,0,0.04),0_8px_16px_-4px_rgba(0,0,0,0.06)]"
         )}
       >
         {items.map((item, index) => (
@@ -82,8 +80,8 @@ export function MenuBar({ items, activeView, onViewChange, className, ...props }
             className={cn(
               "w-8 h-8 px-3 py-1 rounded-full flex justify-center items-center gap-2 transition-colors",
               activeView === item.view 
-                ? "bg-muted/80" 
-                : "hover:bg-muted/80"
+                ? "bg-gray-100 text-gray-900" 
+                : "hover:bg-gray-100 text-gray-600"
             )}
             onMouseEnter={() => setActiveIndex(index)}
             onMouseLeave={() => setActiveIndex(null)}

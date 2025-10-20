@@ -63,8 +63,7 @@ export default function MinimalChatBox() {
             width: isOpen ? "380px" : "56px",
           }}
           initial={false}
-          className="flex flex-col shadow-lg overflow-hidden
-                     bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-700"
+          className="flex flex-col shadow-lg overflow-hidden bg-white rounded-2xl border border-gray-200"
         >
           {/* Header */}
           <div className={`flex items-center bg-gradient-to-r from-purple-500 to-blue-500 ${
@@ -85,12 +84,12 @@ export default function MinimalChatBox() {
 
           {/* Messages */}
           {isOpen && (
-            <div className="flex-1 px-4 py-3 overflow-y-auto flex flex-col gap-3 bg-gray-50 dark:bg-gray-900">
+            <div className="flex-1 px-4 py-3 overflow-y-auto flex flex-col gap-3 bg-gray-50">
               {messages.length === 0 ? (
                 <div className="flex flex-col items-center justify-center h-full text-center">
                   <MessageSquare size={48} className="text-gray-300 mb-3" />
-                  <span className="text-gray-500 text-sm font-medium">No messages yet</span>
-                  <span className="text-gray-400 text-xs mt-1">Ask me anything!</span>
+                  <span className="text-gray-600 text-sm font-medium">No messages yet</span>
+                  <span className="text-gray-500 text-xs mt-1">Ask me anything!</span>
                 </div>
               ) : (
                 messages.map((msg, idx) => (
@@ -102,7 +101,7 @@ export default function MinimalChatBox() {
                       className={`px-4 py-2 rounded-2xl text-sm max-w-[85%] ${
                         msg.role === 'user'
                           ? 'bg-gradient-to-r from-purple-500 to-blue-500 text-white'
-                          : 'bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 border border-gray-200 dark:border-gray-700'
+                          : 'bg-white text-gray-900 border border-gray-200'
                       }`}
                     >
                       {msg.content}
@@ -112,14 +111,14 @@ export default function MinimalChatBox() {
               )}
               {loading && (
                 <div className="flex justify-start">
-                  <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 px-4 py-3 rounded-2xl">
-                    <TextShimmer 
-                      className="text-sm font-medium [--base-color:theme(colors.purple.600)] [--base-gradient-color:theme(colors.blue.500)] dark:[--base-color:theme(colors.purple.400)] dark:[--base-gradient-color:theme(colors.blue.300)]"
-                      duration={1.5}
-                    >
-                      Generating response...
-                    </TextShimmer>
-                  </div>
+                      <div className="bg-white border border-gray-200 px-4 py-3 rounded-2xl">
+                        <TextShimmer 
+                          className="text-sm font-medium [--base-color:#7c3aed] [--base-gradient-color:#3b82f6]"
+                          duration={1.5}
+                        >
+                          Generating response...
+                        </TextShimmer>
+                      </div>
                 </div>
               )}
             </div>
@@ -127,9 +126,9 @@ export default function MinimalChatBox() {
 
           {/* Input */}
           {isOpen && (
-            <div className="flex items-center gap-2 px-4 py-3 border-t border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900">
+            <div className="flex items-center gap-2 px-4 py-3 border-t border-gray-200 bg-white">
               <Input
-                className="flex-1 h-10 rounded-xl border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-purple-500 focus:border-transparent bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
+                className="flex-1 h-10 rounded-xl border-gray-300 focus:ring-2 focus:ring-purple-500 focus:border-transparent bg-white text-gray-900"
                 placeholder="Type a message..."
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
