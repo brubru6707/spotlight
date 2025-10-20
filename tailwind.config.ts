@@ -29,9 +29,9 @@ const config: Config = {
           "100%": { opacity: "0", transform: "translate(-300px, 150px)" },
         },
       },
-    fontFamily: {
-        sans: ['"Be Vietnam Pro"', 'sans-serif'],
-        },
+  fontFamily: {
+    sans: ['"Fixel Text"', 'system-ui', 'sans-serif'],
+  },
     },
   },
   plugins: [],

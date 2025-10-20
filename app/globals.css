@@ -15,12 +15,7 @@ html, body {
   --foreground: #171717;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+/* Removed unsupported @theme rule - color and font CSS variables are declared in :root above. */
 
 @media (prefers-color-scheme: dark) {
   :root {
@@ -32,5 +27,46 @@ html, body {
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  /* Fixel font will be used if available. Drop-in fallback to system sans-serif */
+  font-family: "Fixel Text", Arial, Helvetica, sans-serif;
+}
+
+/*
+  Font integration instructions:
+  1. Copy the Fixel woff2 files into `public/fonts/`.
+     For example: public/fonts/FixelText-Regular.woff2, FixelText-Medium.woff2, FixelText-Bold.woff2
+  2. The @font-face rules below reference those files. Using woff2 is preferred for web delivery.
+*/
+
+@font-face {
+  font-family: 'Fixel Text';
+  src: url('/fonts/FixelText-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Fixel Text';
+  src: url('/fonts/FixelText-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Fixel Text';
+  src: url('/fonts/FixelText-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Optional display/heading face (Fixel Display) */
+@font-face {
+  font-family: 'Fixel Display';
+  src: url('/fonts/FixelDisplay-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
 }
