@@ -4,6 +4,7 @@ import Image from 'next/image';
 import React, { useState, useEffect } from 'react';
 import { TestimonialsColumn } from '../components/ui/testimonials-columns-1';
 import { motion } from 'framer-motion';
+import LiteYouTubeEmbed from 'react-lite-youtube-embed';
 
 const testimonials = [
   {
@@ -235,8 +236,20 @@ export default function App() {
                     </ul>
                   </div>
                 </div>
-
-                <div className="relative aspect-video rounded-lg overflow-hidden group cursor-pointer shadow-lg">
+                <div className="relative rounded-xl overflow-hidden shadow-2xl border border-gray-200 bg-white">
+                  <LiteYouTubeEmbed 
+                    id="Dz7TYlH_igg" 
+                    title="How to onboard your restaurant guide" 
+                    wrapperClass="aspect-video" 
+                  />
+                  {/* Gradient overlay for text readability */}
+                  <div className="absolute bottom-0 left-0 w-full h-24 bg-gradient-to-t from-black/70 via-black/30 to-transparent pointer-events-none" />
+                  <div className="absolute bottom-0 left-0 w-full p-4 flex flex-col items-start pointer-events-none z-10">
+                    <h4 className="text-white font-bold text-base drop-shadow-lg">How to onboard your restaurant</h4>
+                    <p className="text-white text-xs mt-1 drop-shadow">A quick guide to registration</p>
+                  </div>
+                </div>
+                {/* <div className="relative aspect-video rounded-lg overflow-hidden group cursor-pointer shadow-lg">
                   <iframe 
                     src="https://www.youtube.com/embed/Dz7TYlH_igg"
                     title="How to onboard your restaurant guide"
@@ -249,7 +262,7 @@ export default function App() {
                      <h4 className="text-white font-bold text-sm">How to onboard your restaurant</h4>
                      <p className="text-white text-xs">A quick guide to registration</p>
                   </div>
-                </div>
+                </div> */}
               </div>
             </div>
           </div>

@@ -2,6 +2,7 @@
 import { AuthProvider } from '../context/AuthContext';
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import 'react-lite-youtube-embed/dist/LiteYouTubeEmbed.css'
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
