@@ -15,8 +15,6 @@ html, body {
   --foreground: #171717;
 }
 
-/* Removed unsupported @theme rule - color and font CSS variables are declared in :root above. */
-
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
@@ -27,46 +25,113 @@ html, body {
 body {
   background: var(--background);
   color: var(--foreground);
-  /* Fixel font will be used if available. Drop-in fallback to system sans-serif */
-  font-family: "Fixel Text", Arial, Helvetica, sans-serif;
+  font-family: "Be Vietnam Pro", sans-serif;
 }
 
-/*
-  Font integration instructions:
-  1. Copy the Fixel woff2 files into `public/fonts/`.
-     For example: public/fonts/FixelText-Regular.woff2, FixelText-Medium.woff2, FixelText-Bold.woff2
-  2. The @font-face rules below reference those files. Using woff2 is preferred for web delivery.
-*/
+.be-vietnam-pro-thin {
+  font-family: "Be Vietnam Pro", sans-serif;
+  font-weight: 100;
+  font-style: normal;
+}
 
-@font-face {
-  font-family: 'Fixel Text';
-  src: url('/fonts/FixelText-Regular.woff2') format('woff2');
+.be-vietnam-pro-extralight {
+  font-family: "Be Vietnam Pro", sans-serif;
+  font-weight: 200;
+  font-style: normal;
+}
+
+.be-vietnam-pro-light {
+  font-family: "Be Vietnam Pro", sans-serif;
+  font-weight: 300;
+  font-style: normal;
+}
+
+.be-vietnam-pro-regular {
+  font-family: "Be Vietnam Pro", sans-serif;
   font-weight: 400;
   font-style: normal;
-  font-display: swap;
 }
 
-@font-face {
-  font-family: 'Fixel Text';
-  src: url('/fonts/FixelText-Medium.woff2') format('woff2');
+.be-vietnam-pro-medium {
+  font-family: "Be Vietnam Pro", sans-serif;
   font-weight: 500;
   font-style: normal;
-  font-display: swap;
 }
 
-@font-face {
-  font-family: 'Fixel Text';
-  src: url('/fonts/FixelText-Bold.woff2') format('woff2');
+.be-vietnam-pro-semibold {
+  font-family: "Be Vietnam Pro", sans-serif;
+  font-weight: 600;
+  font-style: normal;
+}
+
+.be-vietnam-pro-bold {
+  font-family: "Be Vietnam Pro", sans-serif;
   font-weight: 700;
   font-style: normal;
-  font-display: swap;
 }
 
-/* Optional display/heading face (Fixel Display) */
-@font-face {
-  font-family: 'Fixel Display';
-  src: url('/fonts/FixelDisplay-Regular.woff2') format('woff2');
-  font-weight: 400;
+.be-vietnam-pro-extrabold {
+  font-family: "Be Vietnam Pro", sans-serif;
+  font-weight: 800;
   font-style: normal;
-  font-display: swap;
+}
+
+.be-vietnam-pro-black {
+  font-family: "Be Vietnam Pro", sans-serif;
+  font-weight: 900;
+  font-style: normal;
+}
+
+.be-vietnam-pro-thin-italic {
+  font-family: "Be Vietnam Pro", sans-serif;
+  font-weight: 100;
+  font-style: italic;
+}
+
+.be-vietnam-pro-extralight-italic {
+  font-family: "Be Vietnam Pro", sans-serif;
+  font-weight: 200;
+  font-style: italic;
+}
+
+.be-vietnam-pro-light-italic {
+  font-family: "Be Vietnam Pro", sans-serif;
+  font-weight: 300;
+  font-style: italic;
+}
+
+.be-vietnam-pro-regular-italic {
+  font-family: "Be Vietnam Pro", sans-serif;
+  font-weight: 400;
+  font-style: italic;
+}
+
+.be-vietnam-pro-medium-italic {
+  font-family: "Be Vietnam Pro", sans-serif;
+  font-weight: 500;
+  font-style: italic;
+}
+
+.be-vietnam-pro-semibold-italic {
+  font-family: "Be Vietnam Pro", sans-serif;
+  font-weight: 600;
+  font-style: italic;
+}
+
+.be-vietnam-pro-bold-italic {
+  font-family: "Be Vietnam Pro", sans-serif;
+  font-weight: 700;
+  font-style: italic;
+}
+
+.be-vietnam-pro-extrabold-italic {
+  font-family: "Be Vietnam Pro", sans-serif;
+  font-weight: 800;
+  font-style: italic;
+}
+
+.be-vietnam-pro-black-italic {
+  font-family: "Be Vietnam Pro", sans-serif;
+  font-weight: 900;
+  font-style: italic;
 }
